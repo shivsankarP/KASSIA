@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Tags -->
+  <title>Kassia Naturals — Traceable Single-Origin Kerala Spices | Seed to Spice</title>
+  <meta name="description" content="Single-origin cardamom, pepper, cloves, cinnamon and dried ginger from the Malabar hills — traceable to origin, tested for purity, shipped from Kerala.">
+  
+  <!-- Styling -->
+  <link rel="stylesheet" href="css/style.css?v=6">
+  
+  <!-- SVG Favicon / Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+  
+  <style>
+    /* Headline Rotator layout */
+    .hero-title-container {
+      position: relative;
+      height: 160px;
+    }
+    .headline-part {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+    }
+    .headline-part.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    @media (max-width: 768px) {
+      .hero-title-container {
+        height: 180px;
+      }
+    }
+
+    /* Hero Scroll Canvas */
+    #hero-scroll-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      display: block;
+      opacity: 0.95; /* Decreased opacity for mobile */
+    }
+    
+    @media (min-width: 768px) {
+      #hero-scroll-bg {
+        opacity: 1; /* Reset opacity for desktop */
+      }
+    }
+    
+    /* Hide static background since animation plays everywhere */
+    .hero-background {
+      display: none !important;
+    }
+
+    /* Hide Navbar (Hero only) */
+    header.hero-glassy {
+      transform: translateY(-100%) !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* ── Serpentine Vine Menu ─────────────────────────────── */
+    .vine-section {
+      padding: 7rem 0 8rem;
+      background-color: #F7F3EE;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle grain overlay */
+    .vine-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(109,130,98,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(178,106,67,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .vine-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    /* SVG vine wrapper */
+    .vine-wrapper {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .vine-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    /* Animated vine path draw */
+    .vine-path-stroke {
+      stroke-dasharray: 3000;
+      stroke-dashoffset: 3000;
+      transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .vine-path-stroke.drawn {
+      stroke-dashoffset: 0;
+    }
+
+    /* Pod arm lines */
+    .vine-arm {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      transition: stroke-dashoffset 0.6s ease;
+    }
+    .vine-arm.drawn {
+      stroke-dashoffset: 0;
+    }
+
+    /* Spice pod items — absolutely positioned over SVG */
+    .vine-pods-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .vine-pod {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      pointer-events: auto;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .vine-pod.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Left-side pods: image on left, text on right */
+    .vine-pod.left {
+      flex-direction: row;
+    }
+    /* Right-side pods: text on left, image on right */
+    .vine-pod.right {
+      flex-direction: row-reverse;
+    }
+
+    /* Circular image */
+    .vine-pod-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 24px rgba(28,43,33,0.12);
+      background-color: #EDE7E0;
+      position: relative;
+    }
+    .vine-pod-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .vine-pod:hover .vine-pod-img img {
+      transform: scale(1.1);
+    }
+
+    /* Flagship glow ring on cardamom */
+    .vine-pod-img.flagship {
+      border-color: #D39B31;
+      box-shadow: 0 0 0 3px rgba(211,155,49,0.25), 0 8px 24px rgba(28,43,33,0.12);
+    }
+
+    /* ── Floating animation keyframes ─────────────────────── */
+    @keyframes spice-float {
+      0%   { transform: translateY(0px);   box-shadow: 0 8px 24px rgba(28,43,33,0.12); }
+      50%  { transform: translateY(-14px); box-shadow: 0 22px 36px rgba(28,43,33,0.16); }
+      100% { transform: translateY(0px);   box-shadow: 0 8px 24px rgba(28,43,33,0.12); }
+    }
+
+    @keyframes spice-float-flagship {
+      0%   { transform: translateY(0px);   box-shadow: 0 0 0 3px rgba(211,155,49,0.25), 0 8px 24px rgba(28,43,33,0.12); }
+      50%  { transform: translateY(-14px); box-shadow: 0 0 0 4px rgba(211,155,49,0.35), 0 22px 38px rgba(28,43,33,0.18); }
+      100% { transform: translateY(0px);   box-shadow: 0 0 0 3px rgba(211,155,49,0.25), 0 8px 24px rgba(28,43,33,0.12); }
+    }
+
+    /* Apply floating to each pod image — staggered delays & durations */
+    #pod-1 .vine-pod-img {
+      animation: spice-float-flagship 5.0s ease-in-out infinite;
+      animation-delay: 0s;
+    }
+    #pod-2 .vine-pod-img {
+      animation: spice-float 5.6s ease-in-out infinite;
+      animation-delay: -1.4s;
+    }
+    #pod-3 .vine-pod-img {
+      animation: spice-float 4.8s ease-in-out infinite;
+      animation-delay: -2.8s;
+    }
+    #pod-4 .vine-pod-img {
+      animation: spice-float 5.3s ease-in-out infinite;
+      animation-delay: -0.7s;
+    }
+    #pod-5 .vine-pod-img {
+      animation: spice-float 5.8s ease-in-out infinite;
+      animation-delay: -2.1s;
+    }
+
+    /* Pause float on hover so zoom-in lands cleanly */
+    .vine-pod:hover .vine-pod-img {
+      animation-play-state: paused;
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .vine-pod-img {
+        animation: none !important;
+      }
+    }
+
+    /* Text block */
+    .vine-pod-text {
+      max-width: 190px;
+    }
+    .vine-pod-text .flagship-tag {
+      display: inline-block;
+      background-color: #D39B31;
+      color: #1C2B21;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      margin-bottom: 0.5rem;
+    }
+    .vine-pod-text h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #1C2B21;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .vine-pod-text p {
+      font-size: 0.85rem;
+      color: #5C675F;
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .vine-pod-text a {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #6D8262;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s ease;
+    }
+    .vine-pod-text a:hover {
+      color: #1C2B21;
+    }
+
+    /* Right-side text right-align */
+    .vine-pod.right .vine-pod-text {
+      text-align: right;
+    }
+    .vine-pod.right .vine-pod-text a {
+      justify-content: flex-end;
+    }
+
+    /* Central vine label */
+    .vine-center-label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #6D8262;
+      color: #FDFBF7;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.1rem;
+      border-radius: 20px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(109,130,98,0.25);
+    }
+
+    /* Mobile miniature animated layout (matches desktop animation) */
+    @media (max-width: 767px) {
+      .vine-wrapper {
+        max-width: 100%;
+        padding: 0 0.5rem;
+      }
+      .vine-pod-img {
+        width: 60px !important;
+        height: 60px !important;
+        border-width: 2px !important;
+      }
+      .vine-pod {
+        gap: 0.5rem !important;
+      }
+      .vine-pod-text {
+        max-width: 130px;
+      }
+      .vine-pod-text h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+      }
+      .vine-pod-text p {
+        font-size: 0.7rem;
+        line-height: 1.3;
+        margin-bottom: 0.3rem;
+      }
+      .vine-pod-text .flagship-tag {
+        font-size: 0.5rem;
+        padding: 0.15rem 0.4rem;
+        margin-bottom: 0.2rem;
+      }
+      .vine-pod-text a {
+        font-size: 0.65rem;
+      }
+      
+      /* Expand width slightly and overlap the center to fit content */
+      .vine-pod.left { width: 50% !important; left: -2% !important; }
+      .vine-pod.right { width: 50% !important; left: 52% !important; }
+      
+      .vine-center-label {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating particles container for Hero background animation -->
+  <div class="hero-particles-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div>
+
+  <!-- Global Header / Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo-link" aria-label="Kassia Naturals Home">
+        <img src="logo.png" alt="Kassia Naturals" class="site-logo">
+      </a>
+      
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="index.html" class="active">Home</a></li>
+          <li class="nav-item"><a href="product-cardamom.html">Spices</a></li>
+          <li class="nav-item"><a href="story.html">Our Story</a></li>
+          <li class="nav-item"><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-actions">
+        <a href="product-cardamom.html" class="btn btn-secondary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Explore Spices</a>
+      </div>
+      
+      <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-background"></div>
+      <canvas id="hero-scroll-bg"></canvas>
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">MALABAR ORIGIN</span>
+          <div class="hero-title-container">
+            <h1 class="hero-title headline-part active">Single-origin spices from the Malabar hills.</h1>
+          </div>
+          <p class="hero-subtitle">Traceable to origin. Tested for purity. Shipped from Kerala.</p>
+          <a href="#spices" class="btn btn-primary">Explore Our Spices</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Origin Strip -->
+    <section class="origin-strip">
+      <div class="container origin-grid">
+        <div class="origin-left reveal-up">
+          <span class="eyebrow">THE ORIGIN</span>
+          <h2>A trade heritage written in the soil.</h2>
+          <div style="margin-top: 2rem; border-left: 2px solid var(--accent-cardamom); padding-left: 1.5rem;">
+            <h3 style="font-family: var(--font-sans); font-size: 3rem; font-weight: 700; color: var(--accent-cardamom); line-height: 1;"><span class="stat-counter" data-target="2000">0</span>+</h3>
+            <p style="font-family: var(--font-sans); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--color-forest);">Years of Trade Heritage</p>
+          </div>
+        </div>
+        <div class="origin-right reveal-up">
+          <p class="origin-copy">"The Malabar coast is where the world's spice trade began, over two thousand years ago. Kerala's high ranges still grow its cardamom, pepper and ginger the old way — high elevation, slow curing, small holdings."</p>
+          <p class="origin-copy">"Kassia Naturals was built by founders who chose to return to that source. Every spice we ship is single-origin Kerala, traceable to where it grew. Nothing blended, nothing borrowed."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ THE FIVE SPICES — Serpentine Vine Menu ══ -->
+    <section id="spices" class="vine-section">
+      <div class="container">
+        <div class="vine-header reveal-up">
+          <span class="eyebrow">OUR SPICES</span>
+          <h2>Five spices. One origin.</h2>
+          <p style="max-width:520px;margin:1rem auto 0;font-size:1.05rem;">Sourced lot by lot from Kerala's spice belt — each one singular in origin, graded by hand, and traceable to where it grew.</p>
+        </div>
+      </div>
+
+      <div class="vine-wrapper container">
+
+        <!-- ── SVG Vine Backbone ── -->
+        <svg class="vine-svg" viewBox="0 0 900 1300" fill="none" aria-hidden="true">
+          <!-- Background decorative leaf shapes -->
+          <ellipse cx="450" cy="650" rx="8" ry="18" fill="#6D8262" opacity="0.12" transform="rotate(15 450 650)"/>
+          <ellipse cx="450" cy="350" rx="6" ry="14" fill="#6D8262" opacity="0.10" transform="rotate(-20 450 350)"/>
+          <ellipse cx="450" cy="950" rx="7" ry="16" fill="#6D8262" opacity="0.12" transform="rotate(10 450 950)"/>
+
+          <!-- Main serpentine vine stem -->
+          <path class="vine-path-stroke" id="main-vine"
+            d="M 450 40
+               C 450 100 370 150 380 220
+               C 390 290 530 310 520 390
+               C 510 470 360 490 370 570
+               C 380 650 540 670 530 760
+               C 520 850 370 870 380 960
+               C 390 1050 530 1060 520 1140
+               C 510 1200 450 1250 450 1280"
+            stroke="#6D8262" stroke-width="4" stroke-linecap="round" fill="none"
+          />
+
+          <!-- Pod arm lines (left pods) -->
+          <line class="vine-arm" id="arm-1" x1="395" y1="220" x2="220" y2="240" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <line class="vine-arm" id="arm-3" x1="375" y1="570" x2="205" y2="590" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <line class="vine-arm" id="arm-5" x1="383" y1="960" x2="213" y2="980" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+
+          <!-- Pod arm lines (right pods) -->
+          <line class="vine-arm" id="arm-2" x1="516" y1="390" x2="686" y2="410" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <line class="vine-arm" id="arm-4" x1="527" y1="760" x2="697" y2="780" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+
+          <!-- Pod bud circles on vine -->
+          <circle cx="390" cy="225" r="8" fill="#6D8262" opacity="0.35"/>
+          <circle cx="518" cy="393" r="8" fill="#6D8262" opacity="0.35"/>
+          <circle cx="373" cy="573" r="8" fill="#6D8262" opacity="0.35"/>
+          <circle cx="528" cy="762" r="8" fill="#6D8262" opacity="0.35"/>
+          <circle cx="385" cy="962" r="8" fill="#6D8262" opacity="0.35"/>
+
+          <!-- Small decorative leaf accents along vine -->
+          <ellipse cx="460" cy="300" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(-30 460 300)"/>
+          <ellipse cx="440" cy="480" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(25 440 480)"/>
+          <ellipse cx="458" cy="660" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(-15 458 660)"/>
+          <ellipse cx="442" cy="860" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(30 442 860)"/>
+          <ellipse cx="456" cy="1060" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(-20 456 1060)"/>
+        </svg>
+
+        <!-- ── Spice Pods Overlay ── -->
+        <div class="vine-pods-overlay">
+
+          <!-- 1. Green Cardamom — LEFT, top ~17% -->
+          <div class="vine-pod left" id="pod-1"
+               style="top:14%; left:0; width:42%;">
+            <div class="vine-pod-img flagship">
+              <img src="assets/spice_cardamom.png" alt="Whole green cardamom pods">
+            </div>
+            <div class="vine-pod-text">
+              <span class="flagship-tag">Flagship</span>
+              <h3>Green Cardamom</h3>
+              <p>The queen of spices — intensely aromatic, sweet and cool, from the hills that gave it their name.</p>
+              <a href="product-cardamom.html">Explore &rarr;</a>
+            </div>
+          </div>
+
+          <!-- 2. Black Pepper — RIGHT, ~29% -->
+          <div class="vine-pod right" id="pod-2"
+               style="top:28%; right:0; width:42%;">
+            <div class="vine-pod-img">
+              <img src="assets/spice_pepper.png" alt="Black pepper grains">
+            </div>
+            <div class="vine-pod-text">
+              <h3>Black Pepper</h3>
+              <p>High-range Malabar pepper with deep heat and bold aroma, sun-dried for three to four days.</p>
+              <a href="product-pepper.html">Explore &rarr;</a>
+            </div>
+          </div>
+
+          <!-- 3. Cloves — LEFT, ~42% -->
+          <div class="vine-pod left" id="pod-3"
+               style="top:41.5%; left:0; width:42%;">
+            <div class="vine-pod-img">
+              <img src="assets/spice_cloves.png" alt="Dried whole cloves">
+            </div>
+            <div class="vine-pod-text">
+              <h3>Cloves</h3>
+              <p>Hand-picked buds from Kerala, rich in essential oil — sharp, warming and deeply aromatic.</p>
+              <a href="product-cloves.html">Explore &rarr;</a>
+            </div>
+          </div>
+
+          <!-- 4. Cinnamon — RIGHT, ~56% -->
+          <div class="vine-pod right" id="pod-4"
+               style="top:55.5%; right:0; width:42%;">
+            <div class="vine-pod-img">
+              <img src="assets/spice_cinnamon.png" alt="Cinnamon sticks">
+            </div>
+            <div class="vine-pod-text">
+              <h3>Cinnamon</h3>
+              <p>Delicate, sweet bark from Kerala's spice gardens — air-dried and rolled into neat quills.</p>
+              <a href="product-cinnamon.html">Explore &rarr;</a>
+            </div>
+          </div>
+
+          <!-- 5. Dried Ginger — LEFT, ~70% -->
+          <div class="vine-pod left" id="pod-5"
+               style="top:69.5%; left:0; width:42%;">
+            <div class="vine-pod-img">
+              <img src="assets/spice_ginger.png" alt="Sun-dried ginger root">
+            </div>
+            <div class="vine-pod-text">
+              <h3>Dried Ginger</h3>
+              <p>Sun-dried and fiery, with a clean citrus edge — slow-cured the traditional Keralan way.</p>
+              <a href="product-ginger.html">Explore &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Centre vine label -->
+          <span class="vine-center-label" style="top:6%;">Kerala Spice Vine</span>
+
+        </div><!-- /vine-pods-overlay -->
+      </div><!-- /vine-wrapper -->
+    </section>
+
+    <!-- Why Kassia -->
+    <section class="why-section">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="eyebrow">WHY KASSIA</span>
+          <h2>Crafted with integrity and transparency.</h2>
+        </div>
+        
+        <div class="why-grid">
+          <!-- Card 1 -->
+          <div class="why-card reveal-up">
+            <div class="why-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3 class="why-title">Single Origin</h3>
+            <p class="why-desc">Every batch comes from one origin — Kerala's spice belt — never blended across regions.</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="why-card reveal-up">
+            <div class="why-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+            </div>
+            <h3 class="why-title">Traceable</h3>
+            <p class="why-desc">We know where each lot grew, and we can show you. Traceability over scale, always.</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="why-card reveal-up">
+            <div class="why-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3 class="why-title">Tested for Purity</h3>
+            <p class="why-desc">Every batch is tested before it ships. Every claim we make is one we can back.</p>
+          </div>
+          <!-- Card 4 -->
+          <div class="why-card reveal-up">
+            <div class="why-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-9L9 5H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M12 10v4M10 12h4"/></svg>
+            </div>
+            <h3 class="why-title">Export Grade</h3>
+            <p class="why-desc">Cleaned, graded and packed to international food-safety standards.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- From Farm to You Timeline -->
+    <section class="timeline-section">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="eyebrow">OUR PROCESS</span>
+          <h2>From Malabar soil to you.</h2>
+        </div>
+        
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+          <div class="timeline-line-active"></div>
+          
+          <!-- Step 1 -->
+          <div class="timeline-item reveal-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-step">Step 1 — Grown</span>
+              <h3>Nurtured naturally</h3>
+              <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
+            </div>
+            <div class="timeline-spacer">
+              <img src="assets/process_grown.png" alt="Grown in Kerala" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
+            </div>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="timeline-item reveal-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-spacer">
+              <img src="assets/process_sourced.png" alt="Sourced lot by lot" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
+            </div>
+            <div class="timeline-content">
+              <span class="timeline-step">Step 2 — Sourced</span>
+              <h3>Selected lot by lot</h3>
+              <p>Selected lot by lot from Kerala's spice belt, with origin recorded for every batch.</p>
+            </div>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="timeline-item reveal-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-step">Step 3 — Graded & Tested</span>
+              <h3>Verified for quality</h3>
+              <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
+            </div>
+            <div class="timeline-spacer">
+              <img src="assets/process_graded.png" alt="Graded and tested" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
+            </div>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="timeline-item reveal-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-spacer">
+              <img src="assets/process_packed.png" alt="Packed and shipped" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
+            </div>
+            <div class="timeline-content">
+              <span class="timeline-step">Step 4 — Packed & Shipped</span>
+              <h3>Sealed at origin</h3>
+              <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Teaser -->
+    <section class="story-teaser">
+      <div class="container story-teaser-content reveal-up">
+        <span class="eyebrow">NARRATIVE</span>
+        <h2>A return to source.</h2>
+        <p>"We left careers abroad to go back to where spice began — the Malabar coast. Kassia Naturals exists to make 'single origin' mean something you can verify: spices traced to where they grew, tested batch by batch, and shipped from Kerala with nothing in between that doesn't need to be there."</p>
+        <a href="story.html" class="btn btn-secondary">Read Our Story</a>
+      </div>
+    </section>
+
+    <!-- Certifications Strip (Hidden/Commented Out until credentials are confirmed) -->
+    <!-- 
+    <section class="certifications-strip">
+      <div class="container certifications-content">
+        <span class="eyebrow">QUALITY YOU CAN VERIFY</span>
+        <p>Registered and certified for export from India. Certificates of Analysis and export documentation available with every shipment.</p>
+      </div>
+    </section>
+    -->
+  </main>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <a href="index.html" class="footer-logo" aria-label="Kassia Naturals Home">Kassia Naturals</a>
+        <p class="footer-tagline">"Single-origin Kerala spices, traceable to source."</p>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-legal">Kassia Naturals is a brand of Rari & Co., Kerala, India. &copy; 2026 Rari & Co. All rights reserved.</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="product-cardamom.html">Products</a></li>
+          <li><a href="story.html">Our Story</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Headline rotator script removed -->
+
+  <!-- Image Sequence Scroll Animation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('hero-scroll-bg');
+      if (!canvas) return;
+      const context = canvas.getContext('2d');
+      const heroSection = document.querySelector('.hero');
+      
+      let isDesktop = window.innerWidth >= 768;
+      let folder = isDesktop ? 'lap' : 'mobile1';
+      
+      const resizeCanvas = () => {
+        canvas.width = heroSection.clientWidth;
+        canvas.height = heroSection.clientHeight;
+      };
+      resizeCanvas();
+
+      let images = [];
+      const imageSeq = { frame: 0 };
+      const frameCount = 300;
+
+      const currentFrame = index => (
+        `${folder}/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.png`
+      );
+
+      const preloadImages = () => {
+        images = [];
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = currentFrame(i);
+          images.push(img);
+        }
+        images[0].onload = render;
+      };
+      
+      preloadImages();
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        const newIsDesktop = window.innerWidth >= 768;
+        if (newIsDesktop !== isDesktop) {
+          isDesktop = newIsDesktop;
+          folder = isDesktop ? 'lap' : 'mobile1';
+          preloadImages();
+        }
+        resizeCanvas();
+        render();
+      });
+
+      gsap.to(imageSeq, {
+        frame: frameCount - 1,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          pin: true,
+          start: "top top",
+          end: "+=3000", // 3000px of scrolling for the animation
+          scrub: 1.5, // Added a smooth 1.5-second delay to scrub
+          toggleClass: { targets: "header", className: "hero-glassy" }
+        },
+        onUpdate: render
+      });
+
+      function render() {
+        const img = images[imageSeq.frame];
+        if (!img || !img.complete) return;
+        
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const hRatio = canvas.width / img.width;
+        const vRatio = canvas.height / img.height;
+        // Use Math.max so the image fills the entire screen (cover)
+        const ratio  = Math.max(hRatio, vRatio);
+        const centerShift_x = (canvas.width - img.width*ratio) / 2;
+        const centerShift_y = (canvas.height - img.height*ratio) / 2;  
+        
+        context.drawImage(img, 0, 0, img.width, img.height,
+                          centerShift_x, centerShift_y, img.width*ratio, img.height*ratio);  
+      }
+    });
+  </script>
+
+  <!-- Vine Animation Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const vine     = document.getElementById('main-vine');
+      const arms     = document.querySelectorAll('.vine-arm');
+      const pods     = document.querySelectorAll('.vine-pod');
+      const section  = document.querySelector('.vine-section');
+
+      if (!vine || !section || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Calculate actual path length and set dasharray
+      const pathLen = vine.getTotalLength ? vine.getTotalLength() : 2800;
+      vine.style.strokeDasharray  = pathLen;
+      vine.style.strokeDashoffset = pathLen;
+      vine.style.transition = 'none'; // GSAP will control it
+
+      // 1. Scrub main vine stem drawing on scroll
+      gsap.to(vine, {
+        strokeDashoffset: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 60%", 
+          end: "bottom 80%",
+          scrub: 1 // smooth scrubbing
+        }
+      });
+
+      // 2. Reveal arms when they come into view, reverse when leaving
+      arms.forEach((arm, i) => {
+        ScrollTrigger.create({
+          trigger: pods[i],
+          start: "top 75%",
+          onEnter: () => arm.classList.add('drawn'),
+          onLeaveBack: () => arm.classList.remove('drawn')
+        });
+      });
+
+      // 3. Reveal pods when they come into view, reverse when leaving
+      pods.forEach((pod) => {
+        ScrollTrigger.create({
+          trigger: pod,
+          start: "top 75%",
+          onEnter: () => pod.classList.add('visible'),
+          onLeaveBack: () => pod.classList.remove('visible')
+        });
+      });
+    });
+  </script>
+
+  <!-- Fix ScrollTrigger Order -->
+  <script>
+    window.addEventListener('load', () => {
+      if (typeof ScrollTrigger !== 'undefined') {
+        // Sort triggers by their position in the DOM so that the Hero pin 
+        // offset is correctly propagated to all sections below it.
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+      }
+    });
+  </script>
+</body>
+</html>
