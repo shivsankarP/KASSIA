@@ -8,45 +8,18 @@
   <title>Green Cardamom — Kassia Naturals | Flagship Kerala Spice</title>
   <meta name="description" content="Our flagship Green Cardamom from the hills that gave it their name. Intensely aromatic, single-origin, traceable and tested for purity.">
   
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Cinzel:wght@400..900&family=Sekuya&display=swap" rel="stylesheet">
+
   <!-- Styling -->
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=28">
   
   <!-- SVG Favicon / Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
   
-  <style>
-    /* Specific styling for product switcher strip */
-    .product-switcher {
-      background-color: var(--bg-cream);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-      padding: 1.5rem 0;
-    }
-    .switcher-list {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-    .switcher-item a {
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--color-muted);
-      transition: var(--transition-fast);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .switcher-item a:hover, .switcher-item.active a {
-      color: var(--accent-cardamom);
-    }
-    .switcher-item.active a {
-      border-bottom: 2px solid var(--accent-cardamom);
-      padding-bottom: 4px;
-    }
-  </style>
+
 </head>
 <body class="inner-page">
 
@@ -80,40 +53,59 @@
 
   <main>
     <!-- Product Detail Hero -->
-    <section class="product-hero">
+    <section class="product-hero theme-cardamom">
       <div class="container product-hero-grid">
-        <!-- Image Column -->
-        <div class="product-hero-image-wrap reveal-up">
-          <img src="assets/spice_cardamom.png" alt="Whole green cardamom pods">
-        </div>
         
         <!-- Details Column -->
         <div class="product-hero-details reveal-up">
-          <span class="product-flagship-badge">FLAGSPICE — OUR FLAGSHIP</span>
           <span class="eyebrow">QUEEN OF SPICES</span>
-          <h1 style="font-size: 3.2rem; margin-bottom: 1rem;">Green Cardamom</h1>
-          <p class="hero-subtitle" style="font-size: 1.15rem; line-height: 1.7;">"Our flagship. The queen of spices, from the hills that gave it their name."</p>
-          
-          <div class="product-origin-card">
-            <p>Single-origin lot from the Cardamom Hills, Kerala. Origin recorded for every batch.</p>
-          </div>
-          
-          <div style="margin-top: 1rem;">
-            <a href="contact.html" class="btn btn-primary">Inquire About This Spice</a>
-          </div>
+          <h1 class="product-hero-title">Green Cardamom</h1>
+          <p class="hero-description">"Our flagship. The queen of spices, from the hills that gave it their name."<br><br>Single-origin lot from the Cardamom Hills, Kerala. Origin recorded for every batch.</p>
         </div>
+
+        <!-- Image Column -->
+        <div class="product-hero-image-col reveal-up">
+          <div class="hero-circle-bg"></div>
+          <img src="assets/spice_cardamom.png" alt="Whole green cardamom pods">
+        </div>
+        
       </div>
     </section>
 
-    <!-- Product Switcher Strip -->
-    <nav class="product-switcher" aria-label="Spice Navigator">
-      <div class="container">
-        <ul class="switcher-list">
-          <li class="switcher-item active"><a href="product-cardamom.html">Cardamom</a></li>
-          <li class="switcher-item"><a href="product-pepper.html">Black Pepper</a></li>
-          <li class="switcher-item"><a href="product-cloves.html">Cloves</a></li>
-          <li class="switcher-item"><a href="product-cinnamon.html">Cinnamon</a></li>
-          <li class="switcher-item"><a href="product-ginger.html">Dried Ginger</a></li>
+    <!-- Floating Product Switcher -->
+    <nav class="product-switcher-side" aria-label="Spice Navigator">
+      <div class="side-semi-circle">
+        <ul class="switcher-list-side">
+          <li class="switcher-item-side active" title="Cardamom">
+            <a href="product-cardamom.html">
+              <span class="item-text">Cardamom</span>
+              <div class="item-img-wrapper"><img src="assets/spice_cardamom.png" alt="Cardamom"></div>
+            </a>
+          </li>
+          <li class="switcher-item-side " title="Black Pepper">
+            <a href="product-pepper.html">
+              <span class="item-text">Black Pepper</span>
+              <div class="item-img-wrapper"><img src="assets/spice_pepper.png" alt="Black Pepper"></div>
+            </a>
+          </li>
+          <li class="switcher-item-side " title="Cloves">
+            <a href="product-cloves.html">
+              <span class="item-text">Cloves</span>
+              <div class="item-img-wrapper"><img src="assets/spice_cloves.png" alt="Cloves"></div>
+            </a>
+          </li>
+          <li class="switcher-item-side " title="Cinnamon">
+            <a href="product-cinnamon.html">
+              <span class="item-text">Cinnamon</span>
+              <div class="item-img-wrapper"><img src="assets/spice_cinnamon.png" alt="Cinnamon"></div>
+            </a>
+          </li>
+          <li class="switcher-item-side " title="Dried Ginger">
+            <a href="product-ginger.html">
+              <span class="item-text">Dried Ginger</span>
+              <div class="item-img-wrapper"><img src="assets/spice_ginger.png" alt="Dried Ginger"></div>
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
