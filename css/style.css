@@ -2,24 +2,24 @@
 
 /* CSS Variables for Kassia Naturals Design System */
 :root {
-  --bg-cream: #FDFBF7;
-  --bg-beige: #F7F3EE;
-  --bg-sand: #EDE7E0;
+  --bg-cream: #2B452D; /* Fernglade Green */
+  --bg-beige: #325034; /* Slightly lighter */
+  --bg-sand: #395B3B;
   
   /* Spice Accents */
-  --accent-cardamom: #6D8262; /* Cardamom Green */
-  --accent-cardamom-light: #F0F4EF;
-  --accent-turmeric: #D39B31; /* Turmeric Gold */
-  --accent-cinnamon: #B26A43; /* Cinnamon Terracotta */
-  --color-forest: #1C2B21;     /* Deep Clove / Primary Text */
+  --accent-cardamom: #A8C49E;
+  --accent-cardamom-light: #3D6440;
+  --accent-turmeric: #E8C163;
+  --accent-cinnamon: #DE8F62;
+  --color-forest: #FDFBF7;     /* Light Cream Text */
   
-  --color-white: #FFFFFF;
-  --color-muted: #5C675F;
-  --color-border: #E5DDD3;
+  --color-white: #2B452D;
+  --color-muted: #9BAA96;
+  --color-border: #446C46;
   
   /* Typography */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Abril Fatface', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Slabo 27px', 'DM Sans', system-ui, -apple-system, sans-serif;
   
   /* Animations */
   --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -28,7 +28,7 @@
   --shadow-hover: 0 20px 48px rgba(28, 43, 33, 0.08);
   
   /* Layout */
-  --header-height: 90px;
+  --header-height: 80px;
 }
 
 /* Base resets & styling */
@@ -43,14 +43,14 @@ html {
   background-color: var(--bg-cream);
   color: var(--color-forest);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 20px; /* Scaled up to make the site feel fuller */
+  line-height: 1.7; /* Slightly more breathing room */
   -webkit-font-smoothing: antialiased;
 }
 
 body {
   overflow-x: hidden;
-  background-color: var(--bg-cream);
+  background: radial-gradient(circle at center, var(--bg-sand) 0%, var(--bg-cream) 100%) fixed;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -71,22 +71,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-size: clamp(2rem, 5vw, 4.5rem);
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
 .hero-title {
-  font-family: 'Sekuya', 'Cinzel', serif;
+  font-family: var(--font-serif);
 }
 
 h2 {
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(2rem, 4vw, 3.8rem);
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
 h3 {
+  font-family: 'Lobster Two', cursive;
   font-size: clamp(1.5rem, 2vw, 2.2rem);
   font-weight: 400;
 }
@@ -99,8 +100,8 @@ p {
 
 /* Eyebrows & Small Texts */
 .eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-family: 'Lobster Two', cursive;
+  font-size: 1rem; /* Slightly larger for cursive readability */
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 600;
@@ -138,33 +139,42 @@ header {
 
 header.scrolled {
   height: 80px;
-  background-color: rgba(253, 251, 247, 0.9);
+  background-color: rgba(43, 69, 45, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 4px 20px rgba(28, 43, 33, 0.02);
+  box-shadow: 0 4px 20px rgba(28, 43, 33, 0.05);
 }
 
 .nav-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
 
-.logo-link {
+/* Floating Logo Badge */
+.logo-badge {
+  position: fixed;
+  top: 15px;
+  left: 30px;
+  z-index: 1100;
   display: flex;
   align-items: center;
-  text-decoration: none;
-  gap: 0.5rem;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  transition: var(--transition-smooth);
+}
+
+.logo-badge:hover {
+  transform: translateY(-3px) scale(1.05);
 }
 
 .site-logo {
-  height: 60px;
-  max-height: 100%;
+  height: 140px;
   width: auto;
   display: block;
   object-fit: contain;
-  transition: var(--transition-smooth);
 }
 
 .nav-menu {
@@ -312,6 +322,27 @@ header.scrolled {
 }
 
 @media (max-width: 991px) {
+  :root {
+    --header-height: 80px;
+  }
+  
+  .nav-container {
+    justify-content: flex-end; /* Push hamburger to right since nav is centered */
+  }
+  
+  .logo-badge {
+    top: 10px;
+    left: 20px;
+  }
+  
+  .logo-badge:hover {
+    transform: translateY(-2px);
+  }
+
+  .site-logo {
+    height: 70px;
+  }
+
   .hamburger {
     display: block;
   }
@@ -349,7 +380,7 @@ header.scrolled {
   display: flex;
   align-items: center;
   padding-top: var(--header-height);
-  background-color: var(--bg-cream);
+  background-color: transparent;
   overflow: hidden;
 }
 
@@ -379,8 +410,9 @@ header.scrolled {
 }
 
 .hero-title {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
   margin-bottom: 1.5rem;
-  color: var(--bg-cream);
+  color: var(--color-forest);
   text-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
@@ -403,7 +435,7 @@ header.scrolled {
 /* Origin Strip */
 .origin-strip {
   padding: 8rem 0;
-  background-color: var(--bg-beige);
+  background-color: transparent;
   position: relative;
 }
 
@@ -423,6 +455,7 @@ header.scrolled {
 
 .origin-left h2 {
   max-width: 450px;
+  font-size: clamp(1.8rem, 3vw, 2.5rem); /* Scaled down */
 }
 
 .origin-right {
@@ -432,15 +465,15 @@ header.scrolled {
 }
 
 .origin-copy {
-  font-size: 1.15rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--color-muted);
 }
 
 /* The Five Spices Showcase */
 .spices-section {
   padding: 8rem 0;
-  background-color: var(--bg-cream);
+  background-color: transparent;
 }
 
 .section-header {
@@ -570,7 +603,7 @@ header.scrolled {
 /* Why Kassia Section */
 .why-section {
   padding: 8rem 0;
-  background-color: var(--bg-beige);
+  background-color: transparent;
 }
 
 .why-grid {
@@ -609,7 +642,7 @@ header.scrolled {
 /* From Farm to You Timeline */
 .timeline-section {
   padding: 8rem 0;
-  background-color: var(--bg-cream);
+  background-color: transparent;
   overflow: hidden;
 }
 
@@ -803,7 +836,7 @@ header.scrolled {
 /* Story Teaser & Narrative CTA */
 .story-teaser {
   padding: 8rem 0;
-  background-color: var(--bg-beige);
+  background-color: transparent;
   text-align: center;
   position: relative;
 }
@@ -1090,14 +1123,14 @@ header.scrolled {
 }
 
 .story-block h3 {
-  font-size: 1.75rem;
+  font-size: 2.25rem;
   margin-bottom: 1.25rem;
   color: var(--color-forest);
 }
 
 .story-block p {
-  font-size: 1.15rem;
-  line-height: 1.8;
+  font-size: 1.35rem;
+  line-height: 1.9;
   color: var(--color-muted);
 }
 
@@ -1231,7 +1264,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 3rem;
-  border-bottom: 1px solid rgba(253, 251, 247, 0.1);
+  border-bottom: 1px solid rgba(43, 69, 45, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -1282,7 +1315,7 @@ footer {
 
 .footer-legal {
   font-size: 0.85rem;
-  color: rgba(253, 251, 247, 0.5);
+  color: rgba(43, 69, 45, 0.5);
 }
 
 .footer-links {
@@ -1293,7 +1326,7 @@ footer {
 
 .footer-links a {
   font-size: 0.85rem;
-  color: rgba(253, 251, 247, 0.5);
+  color: rgba(43, 69, 45, 0.5);
   text-decoration: none;
   transition: var(--transition-fast);
 }
@@ -1497,4 +1530,132 @@ footer {
     text-align: center;
     pointer-events: auto;
   }
+}
+
+/* --- Radial Scroll Gallery Styles --- */
+.radial-process-section {
+  padding-top: 5rem;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.radial-gallery-pin {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.radial-gallery-mask {
+  position: relative;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 40%, black 100%);
+  mask-image: linear-gradient(to top, transparent 0%, black 40%, black 100%);
+}
+
+.radial-gallery-wheel {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+.radial-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Transform will be set via JS */
+}
+
+.radial-card {
+  width: 360px;
+  height: 480px;
+  background-color: var(--bg-cream);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .radial-card {
+    width: 280px;
+    height: 380px;
+  }
+}
+
+.radial-card:hover {
+  transform: scale(1.1) translateY(-1rem);
+  z-index: 100;
+}
+
+.radial-gallery-wheel.has-hover .radial-card:not(:hover) {
+  filter: blur(2px) grayscale(0.4);
+  opacity: 0.6;
+}
+
+.radial-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease-out;
+}
+
+.radial-card:hover img {
+  transform: scale(1.1);
+}
+
+.radial-card-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(43, 69, 45, 0.95) 0%, rgba(43, 69, 45, 0.5) 50%, transparent 100%);
+}
+
+.radial-step {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-turmeric);
+  margin-bottom: 0.5rem;
+  background: rgba(0,0,0,0.4);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.radial-card-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-forest);
+}
+
+.radial-card-content p {
+  font-size: 0.85rem;
+  color: var(--color-forest);
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s, transform 0.4s, max-height 0.4s;
+}
+
+.radial-card:hover .radial-card-content p {
+  opacity: 1;
+  max-height: 100px;
+  transform: translateY(0);
 }

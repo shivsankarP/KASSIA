@@ -133,30 +133,81 @@ function initGSAPAnimations() {
     );
   });
 
-  // Animated Timeline Drawing Active Line
-  const timelineLine = document.querySelector('.timeline-line-active');
-  if (timelineLine) {
-    gsap.to(timelineLine, {
-      height: '100%',
+  // --- Radial Scroll Gallery ---
+  const radialPin = document.getElementById('radial-pin');
+  const radialWheel = document.getElementById('radial-wheel');
+  const radialItems = document.querySelectorAll('.radial-item');
+
+  if (radialPin && radialWheel && radialItems.length > 0) {
+    const isMobile = window.innerWidth < 768;
+    const radius = isMobile ? 220 : 600;
+    const circleDiameter = radius * 2;
+    const scrollDuration = 3000;
+    const visiblePercentage = 45; 
+    const visibleDecimal = visiblePercentage / 100;
+    const hiddenDecimal = 1 - visibleDecimal;
+
+    radialWheel.style.width = circleDiameter + 'px';
+    radialWheel.style.height = circleDiameter + 'px';
+    radialWheel.style.bottom = -(circleDiameter * hiddenDecimal) + 'px';
+
+    const childrenCount = radialItems.length;
+    
+    radialItems.forEach((item, index) => {
+      // Place items counter-clockwise so that clockwise rotation (360) brings them in order (1 -> 2 -> 3)
+      const angle = (-index / childrenCount) * 2 * Math.PI - Math.PI / 2;
+      const x = radius * Math.cos(angle);
+      const y = radius * Math.sin(angle);
+      const rotationAngle = (angle * 180) / Math.PI;
+      
+      item.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotate(${rotationAngle + 90}deg)`;
+    });
+
+    const cardHeight = isMobile ? 380 : 480;
+    const visibleAreaHeight = (circleDiameter * visibleDecimal) + (cardHeight / 2) + 150;
+    document.getElementById('radial-mask').style.height = visibleAreaHeight + 'px';
+    radialPin.style.minHeight = (visibleAreaHeight + 50) + 'px';
+
+    // Set GSAP internal transforms so it doesn't wipe out CSS translations during rotation
+    gsap.set(radialWheel, { xPercent: -50 });
+
+    // Animate the inner cards, so we don't overwrite the positioning transforms on the list items
+    const cards = Array.from(radialWheel.children).map(li => li.querySelector('.radial-card'));
+    
+    gsap.fromTo(cards, 
+      { scale: 0, autoAlpha: 0 },
+      {
+        scale: 1,
+        autoAlpha: 1,
+        duration: 1.2,
+        ease: 'back.out(1.2)',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: radialPin,
+          start: 'top 80%',
+        }
+      }
+    );
+
+    gsap.to(radialWheel, {
+      rotation: 360,
       ease: 'none',
       scrollTrigger: {
-        trigger: '.timeline-container',
-        start: 'top 30%',
-        end: 'bottom 60%',
-        scrub: true
+        trigger: radialPin,
+        pin: true,
+        start: 'center center',
+        end: `+=${scrollDuration}`,
+        scrub: 1,
+        invalidateOnRefresh: true,
       }
     });
 
-    // Make timeline dots pop active sequentially
-    document.querySelectorAll('.timeline-item').forEach(item => {
-      ScrollTrigger.create({
-        trigger: item,
-        start: 'top 55%',
-        end: 'bottom 55%',
-        onEnter: () => item.classList.add('active'),
-        onLeaveBack: () => item.classList.remove('active'),
-        onEnterBack: () => item.classList.add('active')
-      });
+    radialItems.forEach(item => {
+      const card = item.querySelector('.radial-card');
+      if (card) {
+        card.addEventListener('mouseenter', () => radialWheel.classList.add('has-hover'));
+        card.addEventListener('mouseleave', () => radialWheel.classList.remove('has-hover'));
+      }
     });
   }
 

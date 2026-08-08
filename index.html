@@ -11,10 +11,10 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Cinzel:wght@400..900&family=Sekuya&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bungee&family=Cinzel:wght@400..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Sekuya&family=Slabo+27px&display=swap" rel="stylesheet">
 
   <!-- Styling -->
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=7">
   
   <!-- SVG Favicon / Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
@@ -23,13 +23,9 @@
     /* Headline Rotator layout */
     .hero-title-container {
       position: relative;
-      height: 220px; /* Increased from 160px to fit multiple lines */
     }
     .headline-part {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+      position: relative;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -39,11 +35,6 @@
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
-    }
-    @media (max-width: 768px) {
-      .hero-title-container {
-        height: 260px; /* Increased to fit mobile wrapping */
-      }
     }
 
     /* Hero Scroll Canvas */
@@ -104,7 +95,7 @@
     /* SVG vine wrapper */
     .vine-wrapper {
       position: relative;
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -127,9 +118,9 @@
 
     /* Pod arm lines */
     .vine-arm {
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      transition: stroke-dashoffset 0.6s ease;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      transition: stroke-dashoffset 0.8s ease;
     }
     .vine-arm.drawn {
       stroke-dashoffset: 0;
@@ -143,6 +134,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
+      z-index: 10;
     }
 
     .vine-pod {
@@ -160,19 +152,21 @@
       transform: translateY(0);
     }
 
-    /* Left-side pods: image on left, text on right */
+    /* Left-side pods: text on left, image on right (closer to vine) */
     .vine-pod.left {
-      flex-direction: row;
-    }
-    /* Right-side pods: text on left, image on right */
-    .vine-pod.right {
       flex-direction: row-reverse;
+      text-align: right;
+    }
+    /* Right-side pods: image on left (closer to vine), text on right */
+    .vine-pod.right {
+      flex-direction: row;
+      text-align: left;
     }
 
     /* Circular image */
     .vine-pod-img {
-      width: 130px;
-      height: 130px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       overflow: hidden;
       flex-shrink: 0;
@@ -246,7 +240,7 @@
 
     /* Text block */
     .vine-pod-text {
-      max-width: 190px;
+      max-width: 280px;
     }
     .vine-pod-text .flagship-tag {
       display: inline-block;
@@ -261,16 +255,17 @@
       margin-bottom: 0.5rem;
     }
     .vine-pod-text h3 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.35rem;
-      font-weight: 500;
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
       color: #1C2B21;
       margin-bottom: 0.4rem;
       line-height: 1.2;
     }
     .vine-pod-text p {
-      font-size: 0.85rem;
-      color: #5C675F;
+      font-size: 1.05rem;
+      color: #3C473F;
+      font-weight: 500;
       line-height: 1.55;
       margin-bottom: 0.6rem;
     }
@@ -367,12 +362,14 @@
   <!-- Floating particles container for Hero background animation -->
   <div class="hero-particles-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div>
 
+  <!-- Floating Logo Badge -->
+  <a href="index.html" class="logo-badge" aria-label="Kassia Naturals Home">
+    <img src="logo.webp" alt="Kassia Naturals" class="site-logo">
+  </a>
+
   <!-- Global Header / Navigation -->
   <header>
     <div class="container nav-container">
-      <a href="index.html" class="logo-link" aria-label="Kassia Naturals Home">
-        <img src="logo.webp" alt="Kassia Naturals" class="site-logo">
-      </a>
       
       <nav aria-label="Main Navigation">
         <ul class="nav-menu">
@@ -383,9 +380,7 @@
         </ul>
       </nav>
       
-      <div class="nav-actions">
-        <a href="product-cardamom.html" class="btn btn-secondary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Explore Spices</a>
-      </div>
+
       
       <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
         <span></span>
@@ -407,7 +402,6 @@
             <h1 class="hero-title headline-part active">Single-origin spices from the Malabar hills.</h1>
           </div>
           <p class="hero-subtitle">Traceable to origin. Tested for purity. Shipped from Kerala.</p>
-          <a href="#spices" class="btn btn-primary">Explore Our Spices</a>
         </div>
       </div>
     </section>
@@ -444,10 +438,21 @@
 
         <!-- ── SVG Vine Backbone ── -->
         <svg class="vine-svg" viewBox="0 0 900 1300" fill="none" aria-hidden="true">
-          <!-- Background decorative leaf shapes -->
-          <ellipse cx="450" cy="650" rx="8" ry="18" fill="#6D8262" opacity="0.12" transform="rotate(15 450 650)"/>
-          <ellipse cx="450" cy="350" rx="6" ry="14" fill="#6D8262" opacity="0.10" transform="rotate(-20 450 350)"/>
-          <ellipse cx="450" cy="950" rx="7" ry="16" fill="#6D8262" opacity="0.12" transform="rotate(10 450 950)"/>
+          <defs>
+            <linearGradient id="vine-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#4A5C41"/>
+              <stop offset="50%" stop-color="#6D8262"/>
+              <stop offset="100%" stop-color="#3B4934"/>
+            </linearGradient>
+            <filter id="vine-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#1C2B21" flood-opacity="0.3"/>
+            </filter>
+            <!-- Realistic Leaf Template -->
+            <g id="leaf">
+              <path d="M0,0 C12,-12 25,-8 30,12 C12,18 0,12 0,0 Z" fill="#5F7553" opacity="0.95"/>
+              <path d="M0,0 L26,9" stroke="#3B4934" stroke-width="1.5" opacity="0.6"/>
+            </g>
+          </defs>
 
           <!-- Main serpentine vine stem -->
           <path class="vine-path-stroke" id="main-vine"
@@ -459,31 +464,37 @@
                C 520 850 370 870 380 960
                C 390 1050 530 1060 520 1140
                C 510 1200 450 1250 450 1280"
-            stroke="#6D8262" stroke-width="4" stroke-linecap="round" fill="none"
+            stroke="url(#vine-grad)" stroke-width="12" stroke-linecap="round" fill="none"
+            filter="url(#vine-shadow)"
           />
 
           <!-- Pod arm lines (left pods) -->
-          <line class="vine-arm" id="arm-1" x1="395" y1="220" x2="220" y2="240" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
-          <line class="vine-arm" id="arm-3" x1="375" y1="570" x2="205" y2="590" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
-          <line class="vine-arm" id="arm-5" x1="383" y1="960" x2="213" y2="980" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <path class="vine-arm" id="arm-1" d="M 395 220 Q 350 180 310 240" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
+          <path class="vine-arm" id="arm-3" d="M 375 570 Q 330 530 310 590" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
+          <path class="vine-arm" id="arm-5" d="M 383 960 Q 340 920 310 980" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
 
           <!-- Pod arm lines (right pods) -->
-          <line class="vine-arm" id="arm-2" x1="516" y1="390" x2="686" y2="410" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
-          <line class="vine-arm" id="arm-4" x1="527" y1="760" x2="697" y2="780" stroke="#6D8262" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <path class="vine-arm" id="arm-2" d="M 516 390 Q 560 350 590 410" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
+          <path class="vine-arm" id="arm-4" d="M 527 760 Q 570 720 590 780" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
 
           <!-- Pod bud circles on vine -->
-          <circle cx="390" cy="225" r="8" fill="#6D8262" opacity="0.35"/>
-          <circle cx="518" cy="393" r="8" fill="#6D8262" opacity="0.35"/>
-          <circle cx="373" cy="573" r="8" fill="#6D8262" opacity="0.35"/>
-          <circle cx="528" cy="762" r="8" fill="#6D8262" opacity="0.35"/>
-          <circle cx="385" cy="962" r="8" fill="#6D8262" opacity="0.35"/>
+          <circle cx="390" cy="225" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
+          <circle cx="518" cy="393" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
+          <circle cx="373" cy="573" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
+          <circle cx="528" cy="762" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
+          <circle cx="385" cy="962" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
 
-          <!-- Small decorative leaf accents along vine -->
-          <ellipse cx="460" cy="300" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(-30 460 300)"/>
-          <ellipse cx="440" cy="480" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(25 440 480)"/>
-          <ellipse cx="458" cy="660" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(-15 458 660)"/>
-          <ellipse cx="442" cy="860" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(30 442 860)"/>
-          <ellipse cx="456" cy="1060" rx="5" ry="11" fill="#8FA882" opacity="0.3" transform="rotate(-20 456 1060)"/>
+          <!-- Realistic decorative leaf accents along vine -->
+          <use href="#leaf" transform="translate(460, 300) rotate(-30) scale(1.1)" />
+          <use href="#leaf" transform="translate(440, 480) rotate(25) scale(1.3)" />
+          <use href="#leaf" transform="translate(458, 660) rotate(-15) scale(1)" />
+          <use href="#leaf" transform="translate(442, 860) rotate(40) scale(1.2)" />
+          <use href="#leaf" transform="translate(456, 1060) rotate(-25) scale(1.4)" />
+          <!-- Extra tendrils/leaves -->
+          <use href="#leaf" transform="translate(410, 150) rotate(-110) scale(1)" />
+          <use href="#leaf" transform="translate(510, 520) rotate(70) scale(1.2)" />
+          <use href="#leaf" transform="translate(420, 780) rotate(-130) scale(1.1)" />
+          <use href="#leaf" transform="translate(500, 910) rotate(80) scale(1.3)" />
         </svg>
 
         <!-- ── Spice Pods Overlay ── -->
@@ -607,69 +618,66 @@
       </div>
     </section>
 
-    <!-- From Farm to You Timeline -->
-    <section class="timeline-section">
-      <div class="container">
-        <div class="section-header reveal-up">
-          <span class="eyebrow">OUR PROCESS</span>
-          <h2>From Malabar soil to you.</h2>
-        </div>
-        
-        <div class="timeline-container">
-          <div class="timeline-line"></div>
-          <div class="timeline-line-active"></div>
-          
-          <!-- Step 1 -->
-          <div class="timeline-item reveal-up">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-step">Step 1 — Grown</span>
-              <h3>Nurtured naturally</h3>
-              <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
-            </div>
-            <div class="timeline-spacer">
-              <img src="assets/process_grown.webp" alt="Grown in Kerala" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
-            </div>
-          </div>
-          
-          <!-- Step 2 -->
-          <div class="timeline-item reveal-up">
-            <div class="timeline-dot"></div>
-            <div class="timeline-spacer">
-              <img src="assets/process_sourced.webp" alt="Sourced lot by lot" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
-            </div>
-            <div class="timeline-content">
-              <span class="timeline-step">Step 2 — Sourced</span>
-              <h3>Selected lot by lot</h3>
-              <p>Selected lot by lot from Kerala's spice belt, with origin recorded for every batch.</p>
-            </div>
-          </div>
-          
-          <!-- Step 3 -->
-          <div class="timeline-item reveal-up">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-step">Step 3 — Graded & Tested</span>
-              <h3>Verified for quality</h3>
-              <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
-            </div>
-            <div class="timeline-spacer">
-              <img src="assets/process_graded.webp" alt="Graded and tested" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
-            </div>
-          </div>
-          
-          <!-- Step 4 -->
-          <div class="timeline-item reveal-up">
-            <div class="timeline-dot"></div>
-            <div class="timeline-spacer">
-              <img src="assets/process_packed.webp" alt="Packed and shipped" style="width: 100%; border-radius: 12px; object-fit: cover; aspect-ratio: 16/10; box-shadow: 0 15px 35px rgba(0,0,0,0.08);">
-            </div>
-            <div class="timeline-content">
-              <span class="timeline-step">Step 4 — Packed & Shipped</span>
-              <h3>Sealed at origin</h3>
-              <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
-            </div>
-          </div>
+    <!-- Radial Scroll Process Section -->
+    <section class="radial-process-section" id="process-section">
+      <div class="container" style="text-align: center; margin-bottom: 2rem;">
+        <span class="eyebrow reveal-up">OUR PROCESS</span>
+        <h2 class="reveal-up">From Malabar soil to you.</h2>
+
+      </div>
+      
+      <!-- Pinned Container -->
+      <div class="radial-gallery-pin" id="radial-pin">
+        <div class="radial-gallery-mask" id="radial-mask">
+          <ul class="radial-gallery-wheel" id="radial-wheel">
+            <!-- Step 1 -->
+            <li class="radial-item">
+              <div class="radial-card group">
+                <img src="assets/process_grown.webp" alt="Grown in Kerala">
+                <div class="radial-card-content">
+                  <span class="radial-step">Step 1 — Grown</span>
+                  <h3>Nurtured naturally</h3>
+                  <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
+                </div>
+              </div>
+            </li>
+            
+            <!-- Step 2 -->
+            <li class="radial-item">
+              <div class="radial-card group">
+                <img src="assets/process_sourced.webp" alt="Sourced lot by lot">
+                <div class="radial-card-content">
+                  <span class="radial-step">Step 2 — Sourced</span>
+                  <h3>Selected lot by lot</h3>
+                  <p>Selected lot by lot from Kerala's spice belt, with origin recorded.</p>
+                </div>
+              </div>
+            </li>
+            
+            <!-- Step 3 -->
+            <li class="radial-item">
+              <div class="radial-card group">
+                <img src="assets/process_graded.webp" alt="Graded and tested">
+                <div class="radial-card-content">
+                  <span class="radial-step">Step 3 — Graded</span>
+                  <h3>Verified for quality</h3>
+                  <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
+                </div>
+              </div>
+            </li>
+            
+            <!-- Step 4 -->
+            <li class="radial-item">
+              <div class="radial-card group">
+                <img src="assets/process_packed.webp" alt="Packed and shipped">
+                <div class="radial-card-content">
+                  <span class="radial-step">Step 4 — Packed</span>
+                  <h3>Sealed at origin</h3>
+                  <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -717,7 +725,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=5"></script>
 
   <!-- Headline rotator script removed -->
 
@@ -779,7 +787,7 @@
           pin: true,
           start: "top top",
           end: "+=3000", // 3000px of scrolling for the animation
-          scrub: 1.5, // Added a smooth 1.5-second delay to scrub
+          scrub: 0.4, // Slightly increased delay for smoother transition
           toggleClass: { targets: "header", className: "hero-glassy" }
         },
         onUpdate: render
@@ -838,7 +846,7 @@
       arms.forEach((arm, i) => {
         ScrollTrigger.create({
           trigger: pods[i],
-          start: "top 75%",
+          start: "center 60%",
           onEnter: () => arm.classList.add('drawn'),
           onLeaveBack: () => arm.classList.remove('drawn')
         });
@@ -848,7 +856,7 @@
       pods.forEach((pod) => {
         ScrollTrigger.create({
           trigger: pod,
-          start: "top 75%",
+          start: "center 60%",
           onEnter: () => pod.classList.add('visible'),
           onLeaveBack: () => pod.classList.remove('visible')
         });
