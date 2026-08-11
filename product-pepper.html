@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bungee&family=Cinzel:wght@400..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Sekuya&family=Slabo+27px&display=swap" rel="stylesheet">
 
   <!-- Styling -->
-  <link rel="stylesheet" href="css/style.css?v=29">
+  <link rel="stylesheet" href="css/style.css?v=12372">
   
   <!-- SVG Favicon / Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
@@ -52,92 +52,120 @@
     </div>
   </header>
 
-  <main>
+    <main>
     <!-- Product Detail Hero -->
-    <section class="product-hero theme-pepper">
-      <div class="container product-hero-grid">
+    <section class="bento-hero">
+      <div class="container bento-hero-grid">
         
         <!-- Details Column -->
-        <div class="product-hero-details reveal-up">
+        <div class="bento-hero-details reveal-up">
           <span class="eyebrow">KING OF SPICES</span>
-          <h1 class="product-hero-title">Black Pepper</h1>
-          <p class="hero-description">"The king of spices. Bold, sharp, and essential to every kitchen."<br><br>Hand-picked from the lush vines of the Western Ghats. Sun-dried to perfection.</p>
+          <h1 class="bento-hero-title">Black Pepper</h1>
+          <p class="hero-subtitle">Traceable to origin. Tested for purity. Shipped from Kerala.</p>
+          <div class="bento-hero-actions">
+            <a href="#" class="btn btn-secondary">Add to cart</a>
+            <a href="story.html" class="btn btn-secondary">Trace Origin</a>
+          </div>
         </div>
 
         <!-- Image Column -->
-        <div class="product-hero-image-col reveal-up">
-          <div class="hero-circle-bg"></div>
-          <img src="assets/spice_pepper.webp" alt="Whole black peppercorns">
+        <div class="bento-hero-image-wrap reveal-up">
+          <img src="assets/spice_pepper.webp" alt="Black Pepper">
         </div>
         
       </div>
     </section>
 
-    <!-- Floating Product Switcher -->
-    <nav class="product-switcher-side" aria-label="Spice Navigator">
-      <div class="side-semi-circle">
-        <ul class="switcher-list-side">
-          <li class="switcher-item-side " title="Cardamom">
-            <a href="product-cardamom.html">
-              <span class="item-text">Cardamom</span>
-              <div class="item-img-wrapper"><img src="assets/spice_cardamom.webp" alt="Cardamom"></div>
-            </a>
-          </li>
-          <li class="switcher-item-side active" title="Black Pepper">
-            <a href="product-pepper.html">
-              <span class="item-text">Black Pepper</span>
-              <div class="item-img-wrapper"><img src="assets/spice_pepper.webp" alt="Black Pepper"></div>
-            </a>
-          </li>
-          <li class="switcher-item-side " title="Cloves">
-            <a href="product-cloves.html">
-              <span class="item-text">Cloves</span>
-              <div class="item-img-wrapper"><img src="assets/spice_cloves.webp" alt="Cloves"></div>
-            </a>
-          </li>
-          <li class="switcher-item-side " title="Cinnamon">
-            <a href="product-cinnamon.html">
-              <span class="item-text">Cinnamon</span>
-              <div class="item-img-wrapper"><img src="assets/spice_cinnamon.webp" alt="Cinnamon"></div>
-            </a>
-          </li>
-          <li class="switcher-item-side " title="Dried Ginger">
-            <a href="product-ginger.html">
-              <span class="item-text">Dried Ginger</span>
-              <div class="item-img-wrapper"><img src="assets/spice_ginger.webp" alt="Dried Ginger"></div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
 
-    <!-- Blocks Section -->
-    <section class="product-blocks">
+    <!-- Horizontal Bento Switcher -->
+    <section class="bento-switcher-section">
       <div class="container">
-        <div class="blocks-grid">
-          <!-- Block 1: Flavor -->
-          <div class="block-item reveal-up">
-            <h3 class="block-title">
-              <span>✦</span> Flavor Profile
-            </h3>
-            <p>Fiery and bold with a complex woody aroma, citrus accents, and deep, lingering heat.</p>
+        <nav class="bento-switcher" aria-label="Spice Navigator">
+          <a href="product-cardamom.html" class="bento-switcher-item ">
+            <img src="assets/spice_cardamom.webp" alt="Cardamom" class="bento-switcher-img">
+            <div class="bento-switcher-text">
+              <span class="bento-switcher-title">Cardamom</span>
+              <span class="bento-switcher-subtitle">Queen of spices</span>
+            </div>
+          </a>
+          <a href="product-pepper.html" class="bento-switcher-item active">
+            <img src="assets/spice_pepper.webp" alt="Black Pepper" class="bento-switcher-img">
+            <div class="bento-switcher-text">
+              <span class="bento-switcher-title">Black Pepper</span>
+              <span class="bento-switcher-subtitle">Malabar gold</span>
+            </div>
+          </a>
+          <a href="product-cloves.html" class="bento-switcher-item ">
+            <img src="assets/spice_cloves.webp" alt="Cloves" class="bento-switcher-img">
+            <div class="bento-switcher-text">
+              <span class="bento-switcher-title">Cloves</span>
+              <span class="bento-switcher-subtitle">Intense aroma</span>
+            </div>
+          </a>
+          <a href="product-cinnamon.html" class="bento-switcher-item ">
+            <img src="assets/spice_cinnamon.webp" alt="Cinnamon" class="bento-switcher-img">
+            <div class="bento-switcher-text">
+              <span class="bento-switcher-title">Cinnamon</span>
+              <span class="bento-switcher-subtitle">True Ceylon</span>
+            </div>
+          </a>
+          <a href="product-ginger.html" class="bento-switcher-item ">
+            <img src="assets/spice_ginger.webp" alt="Dried Ginger" class="bento-switcher-img">
+            <div class="bento-switcher-text">
+              <span class="bento-switcher-title">Dried Ginger</span>
+              <span class="bento-switcher-subtitle">Sun-dried Chukku</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Bento Grid Section -->
+    <section class="bento-grid-section">
+      <div class="container">
+        <div class="bento-grid">
+          <!-- Row 1, Col 1 (spans 2 rows) -->
+          <div class="bento-item bento-image-large bento-row-2 bento-image-only reveal-up">
+            <img src="assets/pepper_1.webp" alt="Harvesting Black Pepper">
           </div>
 
-          <!-- Block 2: Grown -->
-          <div class="block-item reveal-up">
-            <h3 class="block-title">
-              <span>🌿</span> How It's Grown
-            </h3>
-            <p>Vines climb shade trees in Idukki's high ranges. The peppercorns are hand-harvested, threshed, then sun-dried for three to four days.</p>
+          <!-- Row 1, Col 2 -->
+          <div class="bento-item bento-image-only reveal-up">
+            <img src="assets/pepper_2.webp" alt="Processing Black Pepper">
           </div>
 
-          <!-- Block 3: Uses -->
-          <div class="block-item reveal-up">
-            <h3 class="block-title">
-              <span>🥄</span> Traditional Uses
-            </h3>
-            <p>Freshly cracked over roasted seasonal vegetables, incorporated in spice rubs for slow cooking, or added whole to traditional slow-simmered broths.</p>
+          <!-- Row 1, Col 3 -->
+          <div class="bento-item bento-yellow reveal-up">
+            <div class="bento-content">
+              <h3 class="bento-title">Traditional Uses</h3>
+              <p class="bento-text">Freshly cracked over roasted seasonal vegetables, incorporated in spice rubs for slow cooking, or added whole to traditional slow-simmered broths.</p>
+              <a href="#" class="bento-btn">View recipes</a>
+            </div>
           </div>
+
+          <!-- Row 2, Col 2 -->
+          <div class="bento-item bento-dark reveal-up">
+            <div class="bento-content">
+              <h3 class="bento-title">Flavor Profile</h3>
+              <p class="bento-text">Fiery and bold with a complex woody aroma, citrus accents, and deep, lingering heat.</p>
+              <a href="#" class="bento-btn">Discover notes</a>
+            </div>
+          </div>
+
+          <!-- Row 2, Col 3 (spans 2 rows) -->
+          <div class="bento-item bento-image-only bento-row-2 reveal-up">
+            <img src="assets/pepper_3.webp" alt="Black Pepper in dish">
+          </div>
+
+          <!-- Row 3, Col 1 & 2 (spans 2 cols) -->
+          <div class="bento-item bento-red bento-col-2 reveal-up">
+            <div class="bento-content align-top">
+              <h3 class="bento-title">How It's Grown</h3>
+              <p class="bento-text">Vines climb shade trees in Idukki's high ranges. The peppercorns are hand-harvested, threshed, then sun-dried for three to four days.</p>
+              <a href="story.html" class="bento-btn">Read the story</a>
+            </div>
+          </div>
+          
         </div>
       </div>
     </section>
@@ -165,6 +193,11 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=12360"></script>
+
+  </div> <!-- End content-wrapper -->
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="js/particles-config.js?v=1"></script>
 </body>
 </html>

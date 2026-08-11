@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bungee&family=Cinzel:wght@400..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Sekuya&family=Slabo+27px&display=swap" rel="stylesheet">
 
   <!-- Styling -->
-  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=12360">
   
   <!-- SVG Favicon / Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
@@ -68,302 +68,187 @@
       pointer-events: none !important;
     }
 
-    /* ── Serpentine Vine Menu ─────────────────────────────── */
-    .vine-section {
-      padding: 7rem 0 8rem;
+    /* ── Spices Card Grid ─────────────────────────────── */
+    .spices-card-section {
+      padding: 5rem 0 7rem;
       background-color: #F7F3EE;
       position: relative;
-      overflow: hidden;
     }
+    .spices-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .spices-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .spice-card {
+      flex: 1 1 300px;
+      max-width: 380px;
+      width: 100%;
+      height: 460px;
+      position: relative;
+      perspective: 1500px;
+      text-decoration: none;
+    }
+    .spice-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .spice-card:hover .spice-card-inner {
+      transform: rotateY(180deg);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+    }
+    .spice-card-front, .spice-card-back {
+      position: absolute;
+      inset: 0;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .spice-card-front {
+      justify-content: flex-end;
+    }
+    .spice-card-back {
+      transform: rotateY(180deg);
+      padding: 2.5rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+    
+    /* Specific back colors */
+    .spice-card.cardamom .spice-card-back { background: linear-gradient(135deg, #1A3322 0%, #294D36 100%); }
+    .spice-card.pepper .spice-card-back { background: linear-gradient(135deg, #1F1F1F 0%, #383838 100%); }
+    .spice-card.cloves .spice-card-back { background: linear-gradient(135deg, #3E1C15 0%, #5C2A20 100%); }
+    .spice-card.cinnamon .spice-card-back { background: linear-gradient(135deg, #5C2F15 0%, #8A461F 100%); }
+    .spice-card.ginger .spice-card-back { background: linear-gradient(135deg, #7A5317 0%, #A36F1F 100%); }
 
-    /* Subtle grain overlay */
-    .vine-section::before {
+    .spice-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+      transition: transform 0.8s ease;
+    }
+    .spice-card:hover .spice-card-bg {
+      transform: scale(1.05);
+    }
+    .spice-card-front::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(109,130,98,0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(178,106,67,0.05) 0%, transparent 50%);
-      pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+      z-index: 2;
     }
+    .spice-card.cardamom .spice-card-front::after { background: linear-gradient(to top, rgba(35, 75, 45, 0.95) 0%, rgba(35, 75, 45, 0.4) 50%, transparent 100%); }
+    .spice-card.pepper .spice-card-front::after { background: linear-gradient(to top, rgba(40, 40, 40, 0.95) 0%, rgba(40, 40, 40, 0.4) 50%, transparent 100%); }
+    .spice-card.cloves .spice-card-front::after { background: linear-gradient(to top, rgba(90, 40, 30, 0.95) 0%, rgba(90, 40, 30, 0.4) 50%, transparent 100%); }
+    .spice-card.cinnamon .spice-card-front::after { background: linear-gradient(to top, rgba(140, 70, 30, 0.95) 0%, rgba(140, 70, 30, 0.4) 50%, transparent 100%); }
+    .spice-card.ginger .spice-card-front::after { background: linear-gradient(to top, rgba(160, 110, 30, 0.95) 0%, rgba(160, 110, 30, 0.4) 50%, transparent 100%); }
 
-    .vine-header {
-      text-align: center;
-      margin-bottom: 5rem;
-    }
-
-    /* SVG vine wrapper */
-    .vine-wrapper {
+    .spice-card-content {
       position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .vine-svg {
-      width: 100%;
-      height: auto;
-      display: block;
-      overflow: visible;
-    }
-
-    /* Animated vine path draw */
-    .vine-path-stroke {
-      stroke-dasharray: 3000;
-      stroke-dashoffset: 3000;
-      transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .vine-path-stroke.drawn {
-      stroke-dashoffset: 0;
-    }
-
-    /* Pod arm lines */
-    .vine-arm {
-      stroke-dasharray: 300;
-      stroke-dashoffset: 300;
-      transition: stroke-dashoffset 0.8s ease;
-    }
-    .vine-arm.drawn {
-      stroke-dashoffset: 0;
-    }
-
-    /* Spice pod items — absolutely positioned over SVG */
-    .vine-pods-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .vine-pod {
-      position: absolute;
+      z-index: 3;
+      padding: 1.5rem;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 1.2rem;
-      pointer-events: auto;
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .vine-pod.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Left-side pods: text on left, image on right (closer to vine) */
-    .vine-pod.left {
-      flex-direction: row-reverse;
-      text-align: right;
-    }
-    /* Right-side pods: image on left (closer to vine), text on right */
-    .vine-pod.right {
-      flex-direction: row;
-      text-align: left;
-    }
-
-    /* Circular image */
-    .vine-pod-img {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-      border: 4px solid #fff;
-      box-shadow: 0 8px 24px rgba(28,43,33,0.12);
-      background-color: #EDE7E0;
-      position: relative;
-    }
-    .vine-pod-img img {
-      width: 100%;
       height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-    }
-    .vine-pod:hover .vine-pod-img img {
-      transform: scale(1.1);
-    }
-
-    /* Flagship glow ring on cardamom */
-    .vine-pod-img.flagship {
-      border-color: #D39B31;
-      box-shadow: 0 0 0 3px rgba(211,155,49,0.25), 0 8px 24px rgba(28,43,33,0.12);
-    }
-
-    /* ── Floating animation keyframes ─────────────────────── */
-    @keyframes spice-float {
-      0%   { transform: translateY(0px);   box-shadow: 0 8px 24px rgba(28,43,33,0.12); }
-      50%  { transform: translateY(-14px); box-shadow: 0 22px 36px rgba(28,43,33,0.16); }
-      100% { transform: translateY(0px);   box-shadow: 0 8px 24px rgba(28,43,33,0.12); }
-    }
-
-    @keyframes spice-float-flagship {
-      0%   { transform: translateY(0px);   box-shadow: 0 0 0 3px rgba(211,155,49,0.25), 0 8px 24px rgba(28,43,33,0.12); }
-      50%  { transform: translateY(-14px); box-shadow: 0 0 0 4px rgba(211,155,49,0.35), 0 22px 38px rgba(28,43,33,0.18); }
-      100% { transform: translateY(0px);   box-shadow: 0 0 0 3px rgba(211,155,49,0.25), 0 8px 24px rgba(28,43,33,0.12); }
-    }
-
-    /* Apply floating to each pod image — staggered delays & durations */
-    #pod-1 .vine-pod-img {
-      animation: spice-float-flagship 5.0s ease-in-out infinite;
-      animation-delay: 0s;
-    }
-    #pod-2 .vine-pod-img {
-      animation: spice-float 5.6s ease-in-out infinite;
-      animation-delay: -1.4s;
-    }
-    #pod-3 .vine-pod-img {
-      animation: spice-float 4.8s ease-in-out infinite;
-      animation-delay: -2.8s;
-    }
-    #pod-4 .vine-pod-img {
-      animation: spice-float 5.3s ease-in-out infinite;
-      animation-delay: -0.7s;
-    }
-    #pod-5 .vine-pod-img {
-      animation: spice-float 5.8s ease-in-out infinite;
-      animation-delay: -2.1s;
-    }
-
-    /* Pause float on hover so zoom-in lands cleanly */
-    .vine-pod:hover .vine-pod-img {
-      animation-play-state: paused;
-    }
-
-    /* Respect reduced motion preference */
-    @media (prefers-reduced-motion: reduce) {
-      .vine-pod-img {
-        animation: none !important;
-      }
-    }
-
-    /* Text block */
-    .vine-pod-text {
-      max-width: 280px;
-    }
-    .vine-pod-text .flagship-tag {
-      display: inline-block;
-      background-color: #D39B31;
-      color: #1C2B21;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.7rem;
-      border-radius: 20px;
-      margin-bottom: 0.5rem;
-    }
-    .vine-pod-text h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1C2B21;
-      margin-bottom: 0.4rem;
-      line-height: 1.2;
-    }
-    .vine-pod-text p {
-      font-size: 1.05rem;
-      color: #3C473F;
-      font-weight: 500;
-      line-height: 1.55;
-      margin-bottom: 0.6rem;
-    }
-    .vine-pod-text a {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #6D8262;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.2s ease;
-    }
-    .vine-pod-text a:hover {
-      color: #1C2B21;
-    }
-
-    /* Right-side text right-align */
-    .vine-pod.right .vine-pod-text {
-      text-align: right;
-    }
-    .vine-pod.right .vine-pod-text a {
       justify-content: flex-end;
     }
-
-    /* Central vine label */
-    .vine-center-label {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #6D8262;
-      color: #FDFBF7;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
+    .spice-card-back .spice-card-content {
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .spice-card-text {
+      color: #fff;
+    }
+    .spice-card-text h3 {
+      font-family: var(--font-sans, sans-serif);
+      font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      line-height: 1.1;
+    }
+    .spice-card-back .spice-card-text h3 {
+      justify-content: center;
+    }
+    .spice-card-text h3 span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      opacity: 0.8;
       text-transform: uppercase;
-      padding: 0.4rem 1.1rem;
-      border-radius: 20px;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(109,130,98,0.25);
+      letter-spacing: 0.05em;
     }
-
-    /* Mobile miniature animated layout (matches desktop animation) */
-    @media (max-width: 767px) {
-      .vine-wrapper {
-        max-width: 100%;
-        padding: 0 0.5rem;
-      }
-      .vine-pod-img {
-        width: 60px !important;
-        height: 60px !important;
-        border-width: 2px !important;
-      }
-      .vine-pod {
-        gap: 0.5rem !important;
-      }
-      .vine-pod-text {
-        max-width: 130px;
-      }
-      .vine-pod-text h3 {
-        font-size: 0.95rem;
-        margin-bottom: 0.2rem;
-      }
-      .vine-pod-text p {
-        font-size: 0.7rem;
-        line-height: 1.3;
-        margin-bottom: 0.3rem;
-      }
-      .vine-pod-text .flagship-tag {
-        font-size: 0.5rem;
-        padding: 0.15rem 0.4rem;
-        margin-bottom: 0.2rem;
-      }
-      .vine-pod-text a {
-        font-size: 0.65rem;
-      }
-      
-      /* Expand width slightly and overlap the center to fit content */
-      .vine-pod.left { width: 50% !important; left: -2% !important; }
-      .vine-pod.right { width: 50% !important; left: 52% !important; }
-      
-      .vine-center-label {
-        font-size: 0.55rem;
-        padding: 0.3rem 0.7rem;
-      }
+    .spice-card-text p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      font-weight: 500;
+      margin: 0;
+      font-family: var(--font-sans, sans-serif);
     }
-  </style>
+    .spice-card-back .spice-card-text p {
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+    .spice-card-btn {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-family: var(--font-sans, sans-serif);
+      transition: background 0.3s ease, border-color 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .spice-card-back .spice-card-btn {
+      margin-top: auto;
+    }
+    .spice-card:hover .spice-card-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .spice-card-btn svg {
+      transition: transform 0.3s ease;
+    }
+    .spice-card:hover .spice-card-btn svg {
+      transform: translateX(4px);
+    }
+</style>
 </head>
 <body>
-
-  <!-- Floating particles container for Hero background animation -->
-  <div class="hero-particles-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div>
-
-  <!-- Floating Logo Badge -->
-  <a href="index.html" class="logo-badge" aria-label="Kassia Naturals Home">
+  <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+  <div id="content-wrapper" style="position: relative; z-index: 1;">
+<!-- Floating particles container for Hero background animation -->
+  <div class="hero-particles-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div><a href="index.html" class="logo-badge" aria-label="Kassia Naturals Home">
     <img src="logo.webp" alt="Kassia Naturals" class="site-logo">
   </a>
 
@@ -396,7 +281,7 @@
       <div class="hero-background"></div>
       <canvas id="hero-scroll-bg"></canvas>
       <div class="container">
-        <div class="hero-content">
+        <div class="hero-content" style="position: relative; z-index: 10;">
           <span class="eyebrow">MALABAR ORIGIN</span>
           <div class="hero-title-container">
             <h1 class="hero-title headline-part active">Single-origin spices from the Malabar hills.</h1>
@@ -424,153 +309,173 @@
       </div>
     </section>
 
-    <!-- ══ THE FIVE SPICES — Serpentine Vine Menu ══ -->
-    <section id="spices" class="vine-section">
+    <!-- ══ THE FIVE SPICES — Cards Menu ══ -->
+    <section id="spices" class="spices-card-section">
       <div class="container">
-        <div class="vine-header reveal-up">
+        <div class="spices-header reveal-up">
           <span class="eyebrow">OUR SPICES</span>
           <h2>Five spices. One origin.</h2>
           <p style="max-width:520px;margin:1rem auto 0;font-size:1.05rem;">Sourced lot by lot from Kerala's spice belt — each one singular in origin, graded by hand, and traceable to where it grew.</p>
         </div>
+
+        <div class="spices-grid">
+          <!-- Cardamom -->
+          <a href="product-cardamom.html" class="spice-card cardamom reveal-up">
+            <div class="spice-card-inner">
+              <div class="spice-card-front">
+                <div class="spice-card-bg" style="background-image: url('assets/spice_cardamom.webp');"></div>
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Cardamom</h3>
+                    <p>The queen of spices • Sweet & Cool</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Hover for Details</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="spice-card-back">
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Cardamom</h3>
+                    <p>Intensely aromatic, sweet and cool, from the hills that gave it their name.</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Explore Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Pepper -->
+          <a href="product-pepper.html" class="spice-card pepper reveal-up" style="transition-delay: 0.1s;">
+            <div class="spice-card-inner">
+              <div class="spice-card-front">
+                <div class="spice-card-bg" style="background-image: url('assets/spice_pepper.webp');"></div>
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Black Pepper</h3>
+                    <p>High-range Malabar • Deep Heat</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Hover for Details</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="spice-card-back">
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Black Pepper</h3>
+                    <p>High-range Malabar pepper with deep heat and bold aroma, sun-dried for three to four days.</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Explore Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Cloves -->
+          <a href="product-cloves.html" class="spice-card cloves reveal-up" style="transition-delay: 0.2s;">
+            <div class="spice-card-inner">
+              <div class="spice-card-front">
+                <div class="spice-card-bg" style="background-image: url('assets/spice_cloves.webp');"></div>
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Cloves</h3>
+                    <p>Hand-picked buds • Rich Essential Oil</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Hover for Details</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="spice-card-back">
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Cloves</h3>
+                    <p>Hand-picked buds from Kerala, rich in essential oil — sharp, warming and deeply aromatic.</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Explore Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Cinnamon -->
+          <a href="product-cinnamon.html" class="spice-card cinnamon reveal-up" style="transition-delay: 0.3s;">
+            <div class="spice-card-inner">
+              <div class="spice-card-front">
+                <div class="spice-card-bg" style="background-image: url('assets/spice_cinnamon.webp');"></div>
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Cinnamon</h3>
+                    <p>Delicate sweet bark • Air-dried Quills</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Hover for Details</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="spice-card-back">
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Cinnamon</h3>
+                    <p>Delicate, sweet bark from Kerala's spice gardens — air-dried and rolled into neat quills.</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Explore Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Ginger -->
+          <a href="product-ginger.html" class="spice-card ginger reveal-up" style="transition-delay: 0.4s;">
+            <div class="spice-card-inner">
+              <div class="spice-card-front">
+                <div class="spice-card-bg" style="background-image: url('assets/spice_ginger.webp');"></div>
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Dried Ginger</h3>
+                    <p>Sun-dried fiery root • Citrus Edge</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Hover for Details</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="spice-card-back">
+                <div class="spice-card-content">
+                  <div class="spice-card-text">
+                    <h3>Dried Ginger</h3>
+                    <p>Sun-dried and fiery, with a clean citrus edge — slow-cured the traditional Keralan way.</p>
+                  </div>
+                  <div class="spice-card-btn">
+                    <span>Explore Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+        </div>
       </div>
-
-      <div class="vine-wrapper container">
-
-        <!-- ── SVG Vine Backbone ── -->
-        <svg class="vine-svg" viewBox="0 0 900 1300" fill="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="vine-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#4A5C41"/>
-              <stop offset="50%" stop-color="#6D8262"/>
-              <stop offset="100%" stop-color="#3B4934"/>
-            </linearGradient>
-            <filter id="vine-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#1C2B21" flood-opacity="0.3"/>
-            </filter>
-            <!-- Realistic Leaf Template -->
-            <g id="leaf">
-              <path d="M0,0 C12,-12 25,-8 30,12 C12,18 0,12 0,0 Z" fill="#5F7553" opacity="0.95"/>
-              <path d="M0,0 L26,9" stroke="#3B4934" stroke-width="1.5" opacity="0.6"/>
-            </g>
-          </defs>
-
-          <!-- Main serpentine vine stem -->
-          <path class="vine-path-stroke" id="main-vine"
-            d="M 450 40
-               C 450 100 370 150 380 220
-               C 390 290 530 310 520 390
-               C 510 470 360 490 370 570
-               C 380 650 540 670 530 760
-               C 520 850 370 870 380 960
-               C 390 1050 530 1060 520 1140
-               C 510 1200 450 1250 450 1280"
-            stroke="url(#vine-grad)" stroke-width="12" stroke-linecap="round" fill="none"
-            filter="url(#vine-shadow)"
-          />
-
-          <!-- Pod arm lines (left pods) -->
-          <path class="vine-arm" id="arm-1" d="M 395 220 Q 350 180 310 240" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
-          <path class="vine-arm" id="arm-3" d="M 375 570 Q 330 530 310 590" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
-          <path class="vine-arm" id="arm-5" d="M 383 960 Q 340 920 310 980" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
-
-          <!-- Pod arm lines (right pods) -->
-          <path class="vine-arm" id="arm-2" d="M 516 390 Q 560 350 590 410" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
-          <path class="vine-arm" id="arm-4" d="M 527 760 Q 570 720 590 780" stroke="url(#vine-grad)" stroke-width="6" stroke-linecap="round" fill="none" filter="url(#vine-shadow)"/>
-
-          <!-- Pod bud circles on vine -->
-          <circle cx="390" cy="225" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
-          <circle cx="518" cy="393" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
-          <circle cx="373" cy="573" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
-          <circle cx="528" cy="762" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
-          <circle cx="385" cy="962" r="14" fill="#3B4934" filter="url(#vine-shadow)"/>
-
-          <!-- Realistic decorative leaf accents along vine -->
-          <use href="#leaf" transform="translate(460, 300) rotate(-30) scale(1.1)" />
-          <use href="#leaf" transform="translate(440, 480) rotate(25) scale(1.3)" />
-          <use href="#leaf" transform="translate(458, 660) rotate(-15) scale(1)" />
-          <use href="#leaf" transform="translate(442, 860) rotate(40) scale(1.2)" />
-          <use href="#leaf" transform="translate(456, 1060) rotate(-25) scale(1.4)" />
-          <!-- Extra tendrils/leaves -->
-          <use href="#leaf" transform="translate(410, 150) rotate(-110) scale(1)" />
-          <use href="#leaf" transform="translate(510, 520) rotate(70) scale(1.2)" />
-          <use href="#leaf" transform="translate(420, 780) rotate(-130) scale(1.1)" />
-          <use href="#leaf" transform="translate(500, 910) rotate(80) scale(1.3)" />
-        </svg>
-
-        <!-- ── Spice Pods Overlay ── -->
-        <div class="vine-pods-overlay">
-
-          <!-- 1. Green Cardamom — LEFT, top ~17% -->
-          <div class="vine-pod left" id="pod-1"
-               style="top:14%; left:0; width:42%;">
-            <div class="vine-pod-img flagship">
-              <img src="assets/spice_cardamom.webp" alt="Whole green cardamom pods">
-            </div>
-            <div class="vine-pod-text">
-              <span class="flagship-tag">Flagship</span>
-              <h3>Green Cardamom</h3>
-              <p>The queen of spices — intensely aromatic, sweet and cool, from the hills that gave it their name.</p>
-              <a href="product-cardamom.html">Explore &rarr;</a>
-            </div>
-          </div>
-
-          <!-- 2. Black Pepper — RIGHT, ~29% -->
-          <div class="vine-pod right" id="pod-2"
-               style="top:28%; right:0; width:42%;">
-            <div class="vine-pod-img">
-              <img src="assets/spice_pepper.webp" alt="Black pepper grains">
-            </div>
-            <div class="vine-pod-text">
-              <h3>Black Pepper</h3>
-              <p>High-range Malabar pepper with deep heat and bold aroma, sun-dried for three to four days.</p>
-              <a href="product-pepper.html">Explore &rarr;</a>
-            </div>
-          </div>
-
-          <!-- 3. Cloves — LEFT, ~42% -->
-          <div class="vine-pod left" id="pod-3"
-               style="top:41.5%; left:0; width:42%;">
-            <div class="vine-pod-img">
-              <img src="assets/spice_cloves.webp" alt="Dried whole cloves">
-            </div>
-            <div class="vine-pod-text">
-              <h3>Cloves</h3>
-              <p>Hand-picked buds from Kerala, rich in essential oil — sharp, warming and deeply aromatic.</p>
-              <a href="product-cloves.html">Explore &rarr;</a>
-            </div>
-          </div>
-
-          <!-- 4. Cinnamon — RIGHT, ~56% -->
-          <div class="vine-pod right" id="pod-4"
-               style="top:55.5%; right:0; width:42%;">
-            <div class="vine-pod-img">
-              <img src="assets/spice_cinnamon.webp" alt="Cinnamon sticks">
-            </div>
-            <div class="vine-pod-text">
-              <h3>Cinnamon</h3>
-              <p>Delicate, sweet bark from Kerala's spice gardens — air-dried and rolled into neat quills.</p>
-              <a href="product-cinnamon.html">Explore &rarr;</a>
-            </div>
-          </div>
-
-          <!-- 5. Dried Ginger — LEFT, ~70% -->
-          <div class="vine-pod left" id="pod-5"
-               style="top:69.5%; left:0; width:42%;">
-            <div class="vine-pod-img">
-              <img src="assets/spice_ginger.webp" alt="Sun-dried ginger root">
-            </div>
-            <div class="vine-pod-text">
-              <h3>Dried Ginger</h3>
-              <p>Sun-dried and fiery, with a clean citrus edge — slow-cured the traditional Keralan way.</p>
-              <a href="product-ginger.html">Explore &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Centre vine label -->
-          <span class="vine-center-label" style="top:6%;">Kerala Spice Vine</span>
-
-        </div><!-- /vine-pods-overlay -->
-      </div><!-- /vine-wrapper -->
     </section>
 
     <!-- Why Kassia -->
@@ -618,67 +523,65 @@
       </div>
     </section>
 
-    <!-- Radial Scroll Process Section -->
-    <section class="radial-process-section" id="process-section">
+    <!-- Depth Carousel Process Section -->
+    <section class="radial-process-section" id="process-section" style="overflow: hidden; padding-bottom: 5rem;">
       <div class="container" style="text-align: center; margin-bottom: 2rem;">
         <span class="eyebrow reveal-up">OUR PROCESS</span>
         <h2 class="reveal-up">From Malabar soil to you.</h2>
-
       </div>
-      
-      <!-- Pinned Container -->
-      <div class="radial-gallery-pin" id="radial-pin">
-        <div class="radial-gallery-mask" id="radial-mask">
-          <ul class="radial-gallery-wheel" id="radial-wheel">
-            <!-- Step 1 -->
-            <li class="radial-item">
-              <div class="radial-card group">
-                <img src="assets/process_grown.webp" alt="Grown in Kerala">
-                <div class="radial-card-content">
-                  <span class="radial-step">Step 1 — Grown</span>
-                  <h3>Nurtured naturally</h3>
-                  <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
-                </div>
-              </div>
-            </li>
-            
-            <!-- Step 2 -->
-            <li class="radial-item">
-              <div class="radial-card group">
-                <img src="assets/process_sourced.webp" alt="Sourced lot by lot">
-                <div class="radial-card-content">
-                  <span class="radial-step">Step 2 — Sourced</span>
-                  <h3>Selected lot by lot</h3>
-                  <p>Selected lot by lot from Kerala's spice belt, with origin recorded.</p>
-                </div>
-              </div>
-            </li>
-            
-            <!-- Step 3 -->
-            <li class="radial-item">
-              <div class="radial-card group">
-                <img src="assets/process_graded.webp" alt="Graded and tested">
-                <div class="radial-card-content">
-                  <span class="radial-step">Step 3 — Graded</span>
-                  <h3>Verified for quality</h3>
-                  <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
-                </div>
-              </div>
-            </li>
-            
-            <!-- Step 4 -->
-            <li class="radial-item">
-              <div class="radial-card group">
-                <img src="assets/process_packed.webp" alt="Packed and shipped">
-                <div class="radial-card-content">
-                  <span class="radial-step">Step 4 — Packed</span>
-                  <h3>Sealed at origin</h3>
-                  <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
-                </div>
-              </div>
-            </li>
-          </ul>
+
+      <div class="depth-carousel" id="process-carousel" style="--dc-perspective: 1400px; height: 650px; position: relative;">
+        <div class="depth-carousel__stage">
+          <!-- Step 1 -->
+          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
+            <img class="depth-carousel__img" src="assets/process_grown.webp" alt="Grown" draggable="false">
+            <span class="depth-carousel__tint" style="background: #05060a;"></span>
+            <div class="process-card-content">
+               <span>Step 1 — Grown</span>
+               <h3>Nurtured naturally</h3>
+               <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
+            <img class="depth-carousel__img" src="assets/process_sourced.webp" alt="Sourced" draggable="false">
+            <span class="depth-carousel__tint" style="background: #05060a;"></span>
+            <div class="process-card-content">
+               <span>Step 2 — Sourced</span>
+               <h3>Selected lot by lot</h3>
+               <p>Selected lot by lot from Kerala's spice belt, with origin recorded.</p>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
+            <img class="depth-carousel__img" src="assets/process_graded.webp" alt="Graded" draggable="false">
+            <span class="depth-carousel__tint" style="background: #05060a;"></span>
+            <div class="process-card-content">
+               <span>Step 3 — Graded</span>
+               <h3>Verified for quality</h3>
+               <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
+            <img class="depth-carousel__img" src="assets/process_packed.webp" alt="Packed" draggable="false">
+            <span class="depth-carousel__tint" style="background: #05060a;"></span>
+            <div class="process-card-content">
+               <span>Step 4 — Packed</span>
+               <h3>Sealed at origin</h3>
+               <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
+            </div>
+          </div>
         </div>
+
+        <button type="button" class="depth-carousel__arrow depth-carousel__arrow--prev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="depth-carousel__arrow depth-carousel__arrow--next" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+
       </div>
     </section>
 
@@ -725,7 +628,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=12360"></script>
 
   <!-- Headline rotator script removed -->
 
@@ -812,57 +715,7 @@
     });
   </script>
 
-  <!-- Vine Animation Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const vine     = document.getElementById('main-vine');
-      const arms     = document.querySelectorAll('.vine-arm');
-      const pods     = document.querySelectorAll('.vine-pod');
-      const section  = document.querySelector('.vine-section');
 
-      if (!vine || !section || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Calculate actual path length and set dasharray
-      const pathLen = vine.getTotalLength ? vine.getTotalLength() : 2800;
-      vine.style.strokeDasharray  = pathLen;
-      vine.style.strokeDashoffset = pathLen;
-      vine.style.transition = 'none'; // GSAP will control it
-
-      // 1. Scrub main vine stem drawing on scroll
-      gsap.to(vine, {
-        strokeDashoffset: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 60%", 
-          end: "bottom 80%",
-          scrub: 1 // smooth scrubbing
-        }
-      });
-
-      // 2. Reveal arms when they come into view, reverse when leaving
-      arms.forEach((arm, i) => {
-        ScrollTrigger.create({
-          trigger: pods[i],
-          start: "center 60%",
-          onEnter: () => arm.classList.add('drawn'),
-          onLeaveBack: () => arm.classList.remove('drawn')
-        });
-      });
-
-      // 3. Reveal pods when they come into view, reverse when leaving
-      pods.forEach((pod) => {
-        ScrollTrigger.create({
-          trigger: pod,
-          start: "center 60%",
-          onEnter: () => pod.classList.add('visible'),
-          onLeaveBack: () => pod.classList.remove('visible')
-        });
-      });
-    });
-  </script>
 
   <!-- Fix ScrollTrigger Order -->
   <script>
@@ -875,5 +728,10 @@
       }
     });
   </script>
+
+  </div> <!-- End content-wrapper -->
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="js/particles-config.js?v=1"></script>
 </body>
 </html>

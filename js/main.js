@@ -288,3 +288,272 @@ function initCardTilt() {
     });
   });
 }
+
+// ── Depth Carousel (Vanilla JS) ──
+class DepthCarousel {
+  constructor(element, options = {}) {
+    this.root = element;
+    this.stage = this.root.querySelector('.depth-carousel__stage');
+    this.cards = Array.from(this.stage.querySelectorAll('.depth-carousel__card'));
+    this.overlays = Array.from(this.stage.querySelectorAll('.depth-carousel__tint'));
+    this.dots = Array.from(this.root.querySelectorAll('.depth-carousel__dot'));
+    this.prevBtn = this.root.querySelector('.depth-carousel__arrow--prev');
+    this.nextBtn = this.root.querySelector('.depth-carousel__arrow--next');
+
+    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+    this.cfg = {
+      count: this.cards.length,
+      depth: 220,
+      spread: 90,
+      tilt: 22,
+      tiltDirection: 'right',
+      visibleCards: 4,
+      falloff: 0.2,
+      blur: 6,
+      duration: 700,
+      ease: 'power3.out',
+      loop: true,
+      cardWidth: 440,
+      autoplayDelay: 3200,
+      autoplay: false,
+      ...options
+    };
+
+    this.pos = 0;
+    this.focus = 0;
+    this.scale = 1;
+    this.active = 0;
+    this.clamp = clamp;
+
+    this.tween = null;
+    this.wheelTimer = null;
+    this.autoTimer = null;
+    this.drag = null;
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this.init();
+  }
+
+  init() {
+    this.setupEvents();
+    this.handleResize();
+    this.layout(this.pos);
+  }
+
+  layout(pos) {
+    const cfg = this.cfg;
+    const n = cfg.count;
+    if (!n) return;
+    const dir = cfg.tiltDirection === 'left' ? -1 : 1;
+    const sc = this.scale;
+
+    for (let i = 0; i < n; i++) {
+      const el = this.cards[i];
+      let d = i - pos;
+      if (cfg.loop && n > 1) {
+        d = ((d % n) + n) % n;
+        if (d > n / 2) d -= n;
+      }
+
+      const back = Math.max(0, d);
+      const az = Math.abs(d);
+      const shown = az <= cfg.visibleCards + 0.5;
+
+      const tz = -cfg.depth * d;
+      const tx = dir * cfg.spread * d;
+      const ry = dir * cfg.tilt * this.clamp(d, 0, 1);
+
+      let opacity = d < 0 ? Math.max(0, 1 + d) : 1;
+      if (!shown) opacity = 0;
+
+      const brightness = Math.max(0.15, 1 - back * cfg.falloff);
+      const blurPx = cfg.blur > 0 ? Math.min(cfg.blur, (back / Math.max(1, cfg.visibleCards)) * cfg.blur) : 0;
+      const zi = Math.round(2000 - d * 20);
+
+      el.style.transform = `translate(-50%, -50%) scale(${sc}) translateX(${tx.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateY(${ry.toFixed(3)}deg)`;
+      el.style.opacity = opacity.toFixed(3);
+      el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
+      el.style.zIndex = String(zi);
+      el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none';
+
+      const ov = this.overlays[i];
+      if (ov) ov.style.opacity = this.clamp(back * cfg.falloff * 1.25, 0, 0.86).toFixed(3);
+    }
+  }
+
+  notify(idx) {
+    this.active = idx;
+    this.dots.forEach((d, i) => {
+      if (d) d.classList.toggle('is-active', i === idx);
+    });
+    this.cards.forEach((c, i) => {
+      c.setAttribute('aria-hidden', i !== idx);
+    });
+  }
+
+  tweenTo(target, animate) {
+    if (this.tween) this.tween.kill();
+    const cfg = this.cfg;
+    const dur = animate && !this.reducedMotion ? cfg.duration / 1000 : 0;
+    const proxy = { p: this.pos };
+
+    this.tween = gsap.to(proxy, {
+      p: target,
+      duration: dur,
+      ease: cfg.ease,
+      onUpdate: () => {
+        this.pos = proxy.p;
+        this.layout(proxy.p);
+      },
+      onComplete: () => {
+        const n = cfg.count;
+        if (n > 0) this.pos = ((this.pos % n) + n) % n;
+        this.layout(this.pos);
+      }
+    });
+  }
+
+  setFocus(rawIndex, animate = true) {
+    const cfg = this.cfg;
+    const n = cfg.count;
+    if (!n) return;
+    const idx = cfg.loop ? ((rawIndex % n) + n) % n : this.clamp(rawIndex, 0, n - 1);
+    let delta = idx - this.pos;
+    if (cfg.loop && n > 1) {
+      delta = ((delta % n) + n) % n;
+      if (delta > n / 2) delta -= n;
+    }
+    this.tweenTo(this.pos + delta, animate);
+    if (idx !== this.focus) {
+      this.focus = idx;
+      this.notify(idx);
+    }
+  }
+
+  navigateBy(step) {
+    this.setFocus(this.focus + step, true);
+  }
+
+  setupEvents() {
+    // Resize
+    const ro = new ResizeObserver(entries => {
+      this.handleResize(entries[0].contentRect.width);
+    });
+    ro.observe(this.root);
+
+    // Wheel disabled - using GSAP ScrollTrigger for smooth scroll integration instead
+    /*
+    this.root.addEventListener('wheel', e => {
+      //...
+    }, { passive: false });
+    */
+
+    // Pointer
+    this.root.addEventListener('pointerdown', e => {
+      if (this.cfg.count < 2) return;
+      if (this.tween) this.tween.kill();
+      this.drag = {
+        x: e.clientX,
+        startPos: this.pos,
+        lastX: e.clientX,
+        lastT: performance.now(),
+        v: 0,
+        moved: false,
+        id: e.pointerId
+      };
+    });
+
+    this.root.addEventListener('pointermove', e => {
+      if (!this.drag) return;
+      const stepPx = Math.max(this.cfg.cardWidth * 0.55 * this.scale, 40);
+      const dx = e.clientX - this.drag.x;
+      if (!this.drag.moved && Math.abs(dx) > 4) {
+        this.drag.moved = true;
+        this.root.setPointerCapture(this.drag.id);
+      }
+      if (!this.drag.moved) return;
+      const now = performance.now();
+      const dt = Math.max(now - this.drag.lastT, 1);
+      this.drag.v = (e.clientX - this.drag.lastX) / dt;
+      this.drag.lastX = e.clientX;
+      this.drag.lastT = now;
+      this.pos = this.drag.startPos - dx / stepPx;
+      this.layout(this.pos);
+    });
+
+    const onPointerEnd = () => {
+      if (!this.drag) return;
+      const drag = this.drag;
+      this.drag = null;
+      if (!drag.moved) return;
+      const stepPx = Math.max(this.cfg.cardWidth * 0.55 * this.scale, 40);
+      const projected = this.pos - (drag.v * 180) / stepPx;
+      this.setFocus(Math.round(projected), true);
+    };
+    this.root.addEventListener('pointerup', onPointerEnd);
+    this.root.addEventListener('pointercancel', onPointerEnd);
+
+    // Keyboard
+    this.root.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        this.navigateBy(-1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        this.navigateBy(1);
+      }
+    });
+
+    // Clicks
+    this.cards.forEach((card, i) => {
+      card.addEventListener('click', () => {
+        if (this.drag && this.drag.moved) return;
+        this.setFocus(i, true);
+      });
+    });
+
+    this.dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => this.setFocus(i, true));
+    });
+
+    if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.navigateBy(-1));
+    if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.navigateBy(1));
+  }
+
+  handleResize(w) {
+    if (!w) w = this.root.clientWidth;
+    const needed = this.cfg.cardWidth + Math.abs(this.cfg.spread) * 2 + 120;
+    this.scale = this.clamp(w / needed, 0.4, 1);
+    this.layout(this.pos);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('process-carousel');
+  if (el) {
+    const carousel = new DepthCarousel(el);
+    
+    // Smooth GSAP ScrollTrigger integration
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      const section = document.getElementById('process-section');
+      if (section) {
+        gsap.to(carousel, {
+          pos: carousel.cfg.count - 1, // animate to last card
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            pin: true,
+            start: 'center center',
+            end: '+=2000', // Scroll distance to scrub through
+            scrub: 1,      // Smooth scrubbing (1 second delay)
+            onUpdate: () => {
+              carousel.layout(carousel.pos);
+              carousel.notify(Math.round(carousel.pos));
+            }
+          }
+        });
+      }
+    }
+  }
+});
