@@ -8,9 +8,9 @@ for file in html_files:
         content = f.read()
     
     # regex replace style.css?v=...
-    new_content = re.sub(r'href="css/style\.css[^"]*"', 'href="css/style.css?v=12346"', content)
+    new_content = re.sub(r'href="css/style\.css[^"]*"', 'href="css/style.css?v=12379"', content)
     # regex replace main.js?v=...
-    new_content = re.sub(r'src="js/main\.js[^"]*"', 'src="js/main.js?v=12346"', new_content)
+    new_content = re.sub(r'src="js/main\.js[^"]*"', 'src="js/main.js?v=12379"', new_content)
         
     with open(file, 'w', encoding='utf-8') as f:
         f.write(new_content)

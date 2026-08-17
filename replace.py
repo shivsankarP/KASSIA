@@ -17,6 +17,21 @@ if css_start in content:
       background-color: #F7F3EE;
       position: relative;
     }
+    .spices-card-section .eyebrow {
+      color: var(--bg-cream);
+    }
+    .spices-card-section h2 {
+      /* Base styles if needed */
+    }
+    .spices-card-section .heading-first-half {
+      color: var(--bg-cream);
+    }
+    .spices-card-section .heading-second-half {
+      color: #1a1a1a;
+    }
+    .spices-card-section p {
+      color: #1a1a1a;
+    }
     .spices-header {
       text-align: center;
       margin-bottom: 3.5rem;

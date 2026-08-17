@@ -4,24 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     particlesJS("particles-js", {
       particles: {
         number: { value: 140, density: { enable: true, value_area: 800 } },
-        color: { value: "#A8C49E" },
-        shape: { type: "circle", stroke: { width: 0.5, color: "#E8C163" } },
+        color: { value: ["#ffffff", "#E8F5E5", "#B8E0B2", "#FFEC80"] },
+        shape: { type: "circle", stroke: { width: 1, color: "#ffffff" } },
         opacity: {
-          value: 0.7,
+          value: 1.0,
           random: true,
-          anim: { enable: true, speed: 1, opacity_min: 0.3 },
+          anim: { enable: true, speed: 1.2, opacity_min: 0.6 },
         },
         size: {
-          value: 3,
+          value: 4,
           random: true,
-          anim: { enable: true, speed: 2, size_min: 1 },
+          anim: { enable: true, speed: 2, size_min: 1.5 },
         },
         line_linked: {
           enable: true,
           distance: 160,
-          color: "#A8C49E",
-          opacity: 0.4,
-          width: 1.2,
+          color: "#ffffff",
+          opacity: 0.7,
+          width: 1.5,
         },
         move: { enable: true, speed: 2, random: true, out_mode: "bounce" },
       },
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
           resize: true,
         },
         modes: {
-          grab: { distance: 220, line_linked: { opacity: 0.8 } },
+          grab: { distance: 220, line_linked: { opacity: 1.0 } },
           push: { particles_nb: 4 },
           repulse: { distance: 180, duration: 0.4 },
         },

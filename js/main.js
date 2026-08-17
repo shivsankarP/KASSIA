@@ -11,7 +11,126 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileMenu();
   initCardTilt();
+  initHeadingSplitColors();
+  initStackCarousel();
 });
+
+/* --- Stack Carousel (3D from behind + Scroll Pinning) --- */
+function initStackCarousel() {
+  const carousel = document.querySelector('.stack-carousel');
+  if (!carousel) return;
+
+  const cards   = Array.from(carousel.querySelectorAll('.stack-carousel__card'));
+  const dots    = Array.from(carousel.querySelectorAll('.stack-carousel__dot'));
+  const prevBtn = carousel.querySelector('.stack-carousel__btn--prev');
+  const nextBtn = carousel.querySelector('.stack-carousel__btn--next');
+  let current  = 0;
+  let animating = false;
+
+  function goTo(next) {
+    if (next === current || next < 0 || next >= cards.length) return;
+    animating = true;
+
+    const prev = current;
+    current = next;
+
+    // Step 1: Place incoming card at the back instantly (no transition)
+    cards[next].style.transition = 'none';
+    cards[next].classList.remove('active', 'exit-back', 'enter-from-back');
+    cards[next].classList.add('enter-from-back');
+    cards[next].offsetHeight; // force reflow
+
+    // Step 2: Animate — current exits to back, incoming rises to front
+    cards[next].style.transition = '';
+    cards[prev].classList.remove('active');
+    cards[prev].classList.add('exit-back');
+    cards[next].classList.remove('enter-from-back');
+    cards[next].classList.add('active');
+
+    // Update dots
+    dots[prev]?.classList.remove('active');
+    dots[next]?.classList.add('active');
+
+    cards[next].addEventListener('transitionend', () => {
+      cards[prev].classList.remove('exit-back', 'active');
+      animating = false;
+    }, { once: true });
+  }
+
+  nextBtn && nextBtn.addEventListener('click', () => goTo(Math.min(current + 1, cards.length - 1)));
+  prevBtn && prevBtn.addEventListener('click', () => goTo(Math.max(current - 1, 0)));
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  carousel.setAttribute('tabindex', '0');
+  carousel.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') goTo(Math.min(current + 1, cards.length - 1));
+    if (e.key === 'ArrowLeft')  goTo(Math.max(current - 1, 0));
+  });
+
+  // Pin section on scroll so user completes all cards before page moves on
+  const processSection = document.getElementById('process-section');
+  if (processSection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.create({
+      trigger: processSection,
+      pin: true,
+      start: 'center center',
+      end: () => '+=' + (cards.length * 400),
+      onUpdate: (self) => {
+        const targetIndex = Math.min(
+          cards.length - 1,
+          Math.floor(self.progress * (cards.length - 0.01))
+        );
+        if (targetIndex !== current && !animating) {
+          goTo(targetIndex);
+        }
+      }
+    });
+  } else {
+    // Wheel fallback if ScrollTrigger isn't active
+    let wheelCooldown = false;
+    carousel.addEventListener('wheel', e => {
+      if (animating || wheelCooldown) return;
+
+      if (e.deltaY > 0 && current < cards.length - 1) {
+        e.preventDefault();
+        wheelCooldown = true;
+        setTimeout(() => { wheelCooldown = false; }, 600);
+        goTo(current + 1);
+      } else if (e.deltaY < 0 && current > 0) {
+        e.preventDefault();
+        wheelCooldown = true;
+        setTimeout(() => { wheelCooldown = false; }, 600);
+        goTo(current - 1);
+      }
+    }, { passive: false });
+  }
+}
+
+
+/* --- Heading Split Colors --- */
+function initHeadingSplitColors() {
+  const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .eyebrow, .hero-subtitle, .bento-switcher-subtitle');
+  headings.forEach(heading => {
+    // Skip if heading is inside a card (be specific to avoid blocking entire sections)
+    if (heading.closest('.why-card, .spice-card, .bento-card, .process-card, .product-card')) return;
+    
+    // Skip if heading has child elements (to avoid breaking spans, icons, etc)
+    if (heading.children.length > 0) return;
+    
+    const text = heading.textContent.trim();
+    if (!text) return;
+    
+    const words = text.split(/\s+/);
+    if (words.length <= 1) return; // Need at least 2 words to split
+    
+    const midPoint = Math.ceil(words.length / 2);
+    const firstHalf = words.slice(0, midPoint).join(' ');
+    const secondHalf = words.slice(midPoint).join(' ');
+    
+    heading.innerHTML = `<span class="heading-first-half">${firstHalf}</span> <span class="heading-second-half">${secondHalf}</span>`;
+  });
+}
 
 /* --- Header Sticky & Scroll Interactions --- */
 function initHeader() {

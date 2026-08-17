@@ -10,11 +10,11 @@
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bungee&family=Cinzel:wght@400..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Sekuya&family=Slabo+27px&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
   <!-- Styling -->
-  <link rel="stylesheet" href="css/style.css?v=12360">
+  <link rel="stylesheet" href="css/style.css?v=12379">
   
   <!-- SVG Favicon / Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
@@ -73,6 +73,21 @@
       padding: 5rem 0 7rem;
       background-color: #F7F3EE;
       position: relative;
+    }
+    .spices-card-section .eyebrow {
+      color: var(--bg-cream);
+    }
+    .spices-card-section h2 {
+      /* Base styles if needed */
+    }
+    .spices-card-section .heading-first-half {
+      color: var(--bg-cream);
+    }
+    .spices-card-section .heading-second-half {
+      color: #1a1a1a;
+    }
+    .spices-card-section p {
+      color: #1a1a1a;
     }
     .spices-header {
       text-align: center;
@@ -282,11 +297,6 @@
       <canvas id="hero-scroll-bg"></canvas>
       <div class="container">
         <div class="hero-content" style="position: relative; z-index: 10;">
-          <span class="eyebrow">MALABAR ORIGIN</span>
-          <div class="hero-title-container">
-            <h1 class="hero-title headline-part active">Single-origin spices from the Malabar hills.</h1>
-          </div>
-          <p class="hero-subtitle">Traceable to origin. Tested for purity. Shipped from Kerala.</p>
         </div>
       </div>
     </section>
@@ -530,59 +540,63 @@
         <h2 class="reveal-up">From Malabar soil to you.</h2>
       </div>
 
-      <div class="depth-carousel" id="process-carousel" style="--dc-perspective: 1400px; height: 650px; position: relative;">
-        <div class="depth-carousel__stage">
+      <div class="stack-carousel" id="process-carousel">
+        <div class="stack-carousel__track">
           <!-- Step 1 -->
-          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
-            <img class="depth-carousel__img" src="assets/process_grown.webp" alt="Grown" draggable="false">
-            <span class="depth-carousel__tint" style="background: #05060a;"></span>
-            <div class="process-card-content">
-               <span>Step 1 — Grown</span>
-               <h3>Nurtured naturally</h3>
-               <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
+          <div class="stack-carousel__card active">
+            <img class="stack-carousel__img" src="assets/process_grown.webp" alt="Grown">
+            <div class="stack-carousel__content">
+              <span class="stack-carousel__step">Step 1 — Grown</span>
+              <h3>Nurtured Naturally</h3>
+              <p>In the high ranges of Kerala, on small holdings, the traditional way.</p>
             </div>
           </div>
           <!-- Step 2 -->
-          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
-            <img class="depth-carousel__img" src="assets/process_sourced.webp" alt="Sourced" draggable="false">
-            <span class="depth-carousel__tint" style="background: #05060a;"></span>
-            <div class="process-card-content">
-               <span>Step 2 — Sourced</span>
-               <h3>Selected lot by lot</h3>
-               <p>Selected lot by lot from Kerala's spice belt, with origin recorded.</p>
+          <div class="stack-carousel__card">
+            <img class="stack-carousel__img" src="assets/process_sourced.webp" alt="Sourced">
+            <div class="stack-carousel__content">
+              <span class="stack-carousel__step">Step 2 — Sourced</span>
+              <h3>Selected Lot By Lot</h3>
+              <p>Selected lot by lot from Kerala's spice belt, with origin recorded.</p>
             </div>
           </div>
           <!-- Step 3 -->
-          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
-            <img class="depth-carousel__img" src="assets/process_graded.webp" alt="Graded" draggable="false">
-            <span class="depth-carousel__tint" style="background: #05060a;"></span>
-            <div class="process-card-content">
-               <span>Step 3 — Graded</span>
-               <h3>Verified for quality</h3>
-               <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
+          <div class="stack-carousel__card">
+            <img class="stack-carousel__img" src="assets/process_graded.webp" alt="Graded">
+            <div class="stack-carousel__content">
+              <span class="stack-carousel__step">Step 3 — Graded</span>
+              <h3>Verified For Quality</h3>
+              <p>Hand-graded for size, colour and oil; batch-tested for purity.</p>
             </div>
           </div>
           <!-- Step 4 -->
-          <div class="depth-carousel__card" style="width: 440px; height: 580px; border-radius: 18px;">
-            <img class="depth-carousel__img" src="assets/process_packed.webp" alt="Packed" draggable="false">
-            <span class="depth-carousel__tint" style="background: #05060a;"></span>
-            <div class="process-card-content">
-               <span>Step 4 — Packed</span>
-               <h3>Sealed at origin</h3>
-               <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
+          <div class="stack-carousel__card">
+            <img class="stack-carousel__img" src="assets/process_packed.webp" alt="Packed">
+            <div class="stack-carousel__content">
+              <span class="stack-carousel__step">Step 4 — Packed</span>
+              <h3>Sealed At Origin</h3>
+              <p>Sealed at origin and shipped fresh — never warehoused for seasons.</p>
             </div>
           </div>
         </div>
 
-        <button type="button" class="depth-carousel__arrow depth-carousel__arrow--prev" aria-label="Previous slide">
-          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button type="button" class="depth-carousel__arrow depth-carousel__arrow--next" aria-label="Next slide">
-          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-
-
+        <!-- Navigation -->
+        <div class="stack-carousel__nav">
+          <button class="stack-carousel__btn stack-carousel__btn--prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="stack-carousel__dots">
+            <span class="stack-carousel__dot active"></span>
+            <span class="stack-carousel__dot"></span>
+            <span class="stack-carousel__dot"></span>
+            <span class="stack-carousel__dot"></span>
+          </div>
+          <button class="stack-carousel__btn stack-carousel__btn--next" aria-label="Next">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
+
     </section>
 
     <!-- Story Teaser -->
@@ -628,7 +642,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="js/main.js?v=12360"></script>
+  <script src="js/main.js?v=12379"></script>
 
   <!-- Headline rotator script removed -->
 
@@ -732,6 +746,6 @@
   </div> <!-- End content-wrapper -->
   <!-- Particles.js -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="js/particles-config.js?v=1"></script>
+  <script src="js/particles-config.js?v=2"></script>
 </body>
 </html>
