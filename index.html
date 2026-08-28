@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
   <!-- Styling -->
-  <link rel="stylesheet" href="css/style.css?v=12379">
+  <link rel="stylesheet" href="css/style.css?v=1787581634">
   
   <!-- SVG Favicon / Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
@@ -305,12 +305,8 @@
     <section class="origin-strip">
       <div class="container origin-grid">
         <div class="origin-left reveal-up">
-          <span class="eyebrow">THE ORIGIN</span>
+          <span class="eyebrow"><span class="heading-first-half">THE</span> <span class="heading-second-half">ORIGIN</span></span>
           <h2>A trade heritage written in the soil.</h2>
-          <div style="margin-top: 2rem; border-left: 2px solid var(--accent-cardamom); padding-left: 1.5rem;">
-            <h3 style="font-family: var(--font-sans); font-size: 3rem; font-weight: 700; color: var(--accent-cardamom); line-height: 1;"><span class="stat-counter" data-target="2000">0</span>+</h3>
-            <p style="font-family: var(--font-sans); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--color-forest);">Years of Trade Heritage</p>
-          </div>
         </div>
         <div class="origin-right reveal-up">
           <p class="origin-copy">"The Malabar coast is where the world's spice trade began, over two thousand years ago. Kerala's high ranges still grow its cardamom, pepper and ginger the old way — high elevation, slow curing, small holdings."</p>
@@ -323,7 +319,7 @@
     <section id="spices" class="spices-card-section">
       <div class="container">
         <div class="spices-header reveal-up">
-          <span class="eyebrow">OUR SPICES</span>
+          <span class="eyebrow"><span class="heading-first-half">OUR</span> <span class="heading-second-half">SPICES</span></span>
           <h2>Five spices. One origin.</h2>
           <p style="max-width:520px;margin:1rem auto 0;font-size:1.05rem;">Sourced lot by lot from Kerala's spice belt — each one singular in origin, graded by hand, and traceable to where it grew.</p>
         </div>
@@ -492,7 +488,7 @@
     <section class="why-section">
       <div class="container">
         <div class="section-header reveal-up">
-          <span class="eyebrow">WHY KASSIA</span>
+          <span class="eyebrow"><span class="heading-first-half">WHY</span> <span class="heading-second-half">KASSIA</span></span>
           <h2>Crafted with integrity and transparency.</h2>
         </div>
         
@@ -536,7 +532,7 @@
     <!-- Depth Carousel Process Section -->
     <section class="radial-process-section" id="process-section" style="overflow: hidden; padding-bottom: 5rem;">
       <div class="container" style="text-align: center; margin-bottom: 2rem;">
-        <span class="eyebrow reveal-up">OUR PROCESS</span>
+        <span class="eyebrow reveal-up"><span class="heading-first-half">OUR</span> <span class="heading-second-half">PROCESS</span></span>
         <h2 class="reveal-up">From Malabar soil to you.</h2>
       </div>
 
@@ -602,7 +598,7 @@
     <!-- Story Teaser -->
     <section class="story-teaser">
       <div class="container story-teaser-content reveal-up">
-        <span class="eyebrow">NARRATIVE</span>
+        <span class="eyebrow"><span class="heading-first-half">NARRATIVE</span></span>
         <h2>A return to source.</h2>
         <p>"We left careers abroad to go back to where spice began — the Malabar coast. Kassia Naturals exists to make 'single origin' mean something you can verify: spices traced to where they grew, tested batch by batch, and shipped from Kerala with nothing in between that doesn't need to be there."</p>
         <a href="story.html" class="btn btn-secondary">Read Our Story</a>
@@ -613,7 +609,7 @@
     <!-- 
     <section class="certifications-strip">
       <div class="container certifications-content">
-        <span class="eyebrow">QUALITY YOU CAN VERIFY</span>
+        <span class="eyebrow"><span class="heading-first-half">QUALITY YOU</span> <span class="heading-second-half">CAN VERIFY</span></span>
         <p>Registered and certified for export from India. Certificates of Analysis and export documentation available with every shipment.</p>
       </div>
     </section>
@@ -655,7 +651,8 @@
       const heroSection = document.querySelector('.hero');
       
       let isDesktop = window.innerWidth >= 768;
-      let folder = isDesktop ? 'lap' : 'mobile1';
+      let folder = isDesktop ? 'DESTOP' : 'MOB1';
+      let extension = 'webp';
       
       const resizeCanvas = () => {
         canvas.width = heroSection.clientWidth;
@@ -668,7 +665,7 @@
       const frameCount = 300;
 
       const currentFrame = index => (
-        `${folder}/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.webp`
+        `${folder}/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.${extension}?v=mob1_v1`
       );
 
       const preloadImages = () => {
@@ -688,7 +685,7 @@
         const newIsDesktop = window.innerWidth >= 768;
         if (newIsDesktop !== isDesktop) {
           isDesktop = newIsDesktop;
-          folder = isDesktop ? 'lap' : 'mobile1';
+          folder = isDesktop ? 'DESTOP' : 'MOB1';
           preloadImages();
         }
         resizeCanvas();

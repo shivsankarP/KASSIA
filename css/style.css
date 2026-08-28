@@ -2,20 +2,20 @@
 
 /* CSS Variables for Kassia Naturals Design System */
 :root {
-  --bg-cream: #22B509; /* Vivid Green */
-  --bg-beige: #2CC213; /* Slightly lighter */
-  --bg-sand: #35CE1D;
+  --bg-cream: #064734; /* Forest Green - #064734 */
+  --bg-beige: #064734; /* Forest Green - #064734 */
+  --bg-sand: #064734;  /* Forest Green - #064734 */
   
   /* Spice Accents */
-  --accent-cardamom: #A8C49E;
-  --accent-cardamom-light: #3D6440;
+  --accent-cardamom: #DCEFD9; /* Light mint/sage font tone */
+  --accent-cardamom-light: #064734;
   --accent-turmeric: #E8C163;
   --accent-cinnamon: #DE8F62;
-  --color-forest: #000000;     /* Normal text */
+  --color-forest: #064734;     /* Forest Green */
   
-  --color-white: #22B509;
-  --color-muted: #1a1a1a;
-  --color-border: #446C46;
+  --color-white: #FFFFFF;
+  --color-muted: #D1E5CF;     /* Soft legible text on dark green */
+  --color-border: rgba(255, 255, 255, 0.15);
   
   /* Typography */
   --font-serif: 'Anton', Impact, sans-serif;
@@ -24,8 +24,8 @@
   /* Animations */
   --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   --transition-fast: all 0.2s ease;
-  --shadow-soft: 0 12px 32px rgba(28, 43, 33, 0.04);
-  --shadow-hover: 0 20px 48px rgba(28, 43, 33, 0.08);
+  --shadow-soft: 0 12px 32px rgba(6, 71, 52, 0.15);
+  --shadow-hover: 0 20px 48px rgba(6, 71, 52, 0.25);
   
   /* Layout */
   --header-height: 80px;
@@ -41,7 +41,7 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-cream);
-  color: #000;
+  color: #ffffff;
   font-family: var(--font-sans);
   font-size: 20px; /* Scaled up to make the site feel fuller */
   line-height: 1.7; /* Slightly more breathing room */
@@ -69,13 +69,106 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  color: #ffffff;
 }
 
-.heading-first-half {
-  color: #fff;
+/* --- Base Heading & Eyebrow Colors for Light Contexts --- */
+.spices-card-section h1,
+.spices-card-section h2,
+.spices-card-section h3,
+.spices-card-section h4,
+.spices-card-section .eyebrow,
+.why-section h1,
+.why-section h2,
+.why-section h3,
+.why-section h4,
+.why-section .eyebrow,
+.why-title,
+.bg-white h1, .bg-white h2, .bg-white h3, .bg-white h4, .bg-white .eyebrow,
+.bg-light h1, .bg-light h2, .bg-light h3, .bg-light h4, .bg-light .eyebrow,
+.light-section h1, .light-section h2, .light-section h3, .light-section h4, .light-section .eyebrow,
+.white-bg h1, .white-bg h2, .white-bg h3, .white-bg h4, .white-bg .eyebrow,
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] .eyebrow,
+.light-bg h1, .light-bg h2, .light-bg h3, .light-bg h4, .light-bg .eyebrow,
+.contact-form-card h1, .contact-form-card h2, .contact-form-card h3, .contact-form-card h4 {
+  color: #064734;
 }
+
+/* --- Global Heading Split Colors --- */
+/* 1. Green / Dark Background Contexts (Default) */
+h1 .heading-first-half,
+h2 .heading-first-half,
+h3 .heading-first-half,
+h4 .heading-first-half,
+h5 .heading-first-half,
+h6 .heading-first-half,
+.eyebrow .heading-first-half,
+.heading-first-half {
+  color: #ffffff !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-text-stroke: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+h1 .heading-second-half,
+h2 .heading-second-half,
+h3 .heading-second-half,
+h4 .heading-second-half,
+h5 .heading-second-half,
+h6 .heading-second-half,
+.eyebrow .heading-second-half,
 .heading-second-half {
-  color: #000;
+  color: #000000 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #000000 !important;
+  -webkit-text-stroke: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  display: inline !important;
+  line-height: inherit !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* 2. White / Light Background Contexts */
+.spices-card-section .heading-first-half,
+.bg-white .heading-first-half,
+.bg-light .heading-first-half,
+.light-section .heading-first-half,
+.white-bg .heading-first-half,
+[data-theme="light"] .heading-first-half,
+.light-bg .heading-first-half,
+.spices-card-section h1 .heading-first-half,
+.spices-card-section h2 .heading-first-half,
+.spices-card-section h3 .heading-first-half {
+  color: #064734 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #064734 !important;
+  -webkit-text-stroke: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.spices-card-section .heading-second-half,
+.bg-white .heading-second-half,
+.bg-light .heading-second-half,
+.light-section .heading-second-half,
+.white-bg .heading-second-half,
+[data-theme="light"] .heading-second-half,
+.light-bg .heading-second-half,
+.spices-card-section h1 .heading-second-half,
+.spices-card-section h2 .heading-second-half,
+.spices-card-section h3 .heading-second-half {
+  color: #000000 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #000000 !important;
+  -webkit-text-stroke: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 h1 {
@@ -152,10 +245,10 @@ header {
 
 header.scrolled {
   height: 80px;
-  background-color: rgba(34, 181, 9, 0.95);
+  background-color: #000000 !important;
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 4px 20px rgba(28, 43, 33, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .nav-container {
@@ -201,7 +294,7 @@ header.scrolled {
   font-size: 0.95rem;
   font-weight: 500;
   text-decoration: none;
-  color: var(--color-forest);
+  color: #ffffff;
   position: relative;
   padding: 0.25rem 0;
 }
@@ -248,25 +341,26 @@ header.scrolled {
 }
 
 .btn-primary {
-  background-color: var(--color-forest);
-  color: var(--bg-cream);
+  background-color: #ffffff;
+  color: #064734;
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-cardamom);
+  background-color: #DCEFD9;
+  color: #064734;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(109, 130, 98, 0.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--color-forest);
-  border-color: var(--color-forest);
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-forest);
-  color: var(--bg-cream);
+  background-color: #ffffff;
+  color: #064734;
   transform: translateY(-2px);
 }
 
@@ -277,7 +371,7 @@ header.scrolled {
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-forest);
+  color: #ffffff;
   text-decoration: none;
   position: relative;
   padding-bottom: 4px;
@@ -367,8 +461,8 @@ header.scrolled {
     width: 80%;
     max-width: 400px;
     height: 100vh;
-    background-color: var(--bg-cream);
-    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+    background-color: #000000 !important;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -425,7 +519,7 @@ header.scrolled {
 .hero-title {
   font-size: clamp(1.8rem, 4vw, 3.5rem);
   margin-bottom: 1.5rem;
-  color: var(--color-forest);
+  color: #ffffff;
   text-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
@@ -888,7 +982,7 @@ header.scrolled {
 
 .certifications-content p {
   font-size: 1.05rem;
-  color: var(--color-forest);
+  color: var(--accent-cardamom);
   font-style: italic;
   margin-top: 0.5rem;
 }
@@ -1141,7 +1235,7 @@ header.scrolled {
 .story-block h3 {
   font-size: 2.25rem;
   margin-bottom: 1.25rem;
-  color: var(--color-forest);
+  color: #ffffff;
 }
 
 .story-block p {
@@ -1204,11 +1298,11 @@ header.scrolled {
 .contact-info-item p {
   font-size: 1.1rem;
   margin-bottom: 0;
-  color: var(--color-forest);
+  color: #ffffff;
 }
 
 .contact-info-item a {
-  color: var(--color-forest);
+  color: #ffffff;
   text-decoration: none;
   transition: var(--transition-fast);
 }
@@ -1241,25 +1335,29 @@ header.scrolled {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: var(--color-forest);
+  color: var(--accent-cardamom);
 }
 
 .form-input, .form-select, .form-textarea {
   width: 100%;
   padding: 1rem 1.25rem;
   border-radius: 8px;
-  border: 1px solid var(--color-border);
-  background-color: var(--bg-cream);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.25);
   font-family: var(--font-sans);
   font-size: 1rem;
-  color: var(--color-forest);
+  color: #ffffff;
   transition: var(--transition-smooth);
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--accent-cardamom);
-  box-shadow: 0 0 0 3px var(--accent-cardamom-light);
+  box-shadow: 0 0 0 3px rgba(220, 239, 217, 0.3);
 }
 
 .form-textarea {
@@ -1270,9 +1368,10 @@ header.scrolled {
 /* Global Footer */
 footer {
   margin-top: auto;
-  background-color: var(--color-forest);
-  color: var(--bg-cream);
+  background-color: #000000 !important;
+  color: #064734 !important;
   padding: 5rem 0 3rem 0;
+  border-top: 1px solid rgba(6, 71, 52, 0.3);
 }
 
 .footer-top {
@@ -1280,7 +1379,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 3rem;
-  border-bottom: 1px solid rgba(34, 181, 9, 0.1);
+  border-bottom: 1px solid rgba(6, 71, 52, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -1296,12 +1395,12 @@ footer {
   font-size: 1.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--bg-cream);
+  color: #064734 !important;
   text-decoration: none;
 }
 
 .footer-tagline {
-  color: var(--bg-sand);
+  color: #064734 !important;
   font-size: 1.1rem;
   font-style: italic;
   max-width: 320px;
@@ -1331,7 +1430,7 @@ footer {
 
 .footer-legal {
   font-size: 0.85rem;
-  color: rgba(34, 181, 9, 0.5);
+  color: #064734 !important;
 }
 
 .footer-links {
@@ -1342,13 +1441,14 @@ footer {
 
 .footer-links a {
   font-size: 0.85rem;
-  color: rgba(34, 181, 9, 0.5);
+  color: #064734 !important;
   text-decoration: none;
   transition: var(--transition-fast);
 }
 
 .footer-links a:hover {
-  color: var(--bg-cream);
+  color: #0B6648 !important;
+  text-decoration: underline;
 }
 
 /* Animations reveals and helpers */
@@ -1638,7 +1738,7 @@ footer {
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.5rem;
-  background: linear-gradient(to top, rgba(34, 181, 9, 0.95) 0%, rgba(34, 181, 9, 0.5) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(6, 71, 52, 0.95) 0%, rgba(6, 71, 52, 0.4) 50%, transparent 100%);
 }
 
 .radial-step {
@@ -2018,7 +2118,7 @@ footer {
   font-weight: 700;
   line-height: 1.1;
   text-transform: uppercase;
-  color: var(--color-forest);
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -2464,4 +2564,195 @@ footer {
   .stack-carousel__track {
     height: 420px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL CONTRAST & VISIBILITY GUARANTEE FOR HEADINGS & SUBHEADINGS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL CONTRAST & VISIBILITY GUARANTEE FOR HEADINGS & SUBHEADINGS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Base Defaults (Dark Theme Contexts) */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
+
+.eyebrow {
+  color: #ffffff;
+}
+
+/* 2. Why Section (Dark Green Section - Black Subheadings ONLY here) */
+.why-section h1,
+.why-section h2,
+.why-section h4,
+.why-section .eyebrow {
+  color: #ffffff !important;
+}
+
+.why-title {
+  color: #000000 !important;
+  font-weight: 700;
+}
+
+.why-desc {
+  color: #D1E5CF !important;
+}
+
+/* 3. Light Section Contexts (Spices Grid #F7F3EE, Light Cards, Forms) */
+.spices-card-section h1,
+.spices-card-section h2,
+.spices-card-section h3,
+.spices-card-section h4,
+.spices-card-section .eyebrow,
+.bg-white h1, .bg-white h2, .bg-white h3, .bg-white h4, .bg-white .eyebrow,
+.bg-light h1, .bg-light h2, .bg-light h3, .bg-light h4, .bg-light .eyebrow,
+.light-section h1, .light-section h2, .light-section h3, .light-section h4, .light-section .eyebrow,
+.white-bg h1, .white-bg h2, .white-bg h3, .white-bg h4, .white-bg .eyebrow,
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] .eyebrow,
+.light-bg h1, .light-bg h2, .light-bg h3, .light-bg h4, .light-bg .eyebrow,
+.contact-form-card h1, .contact-form-card h2, .contact-form-card h3, .contact-form-card h4,
+.contact-form-card label {
+  color: #064734 !important;
+}
+
+/* 4. Split Heading Colors - Dark vs Light Sections */
+/* On Dark Backgrounds (Default) */
+.heading-first-half {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.heading-second-half {
+  color: #DCEFD9 !important;
+  -webkit-text-fill-color: #DCEFD9 !important;
+}
+
+/* On Light Backgrounds */
+.spices-card-section .heading-first-half,
+.bg-white .heading-first-half,
+.bg-light .heading-first-half,
+.light-section .heading-first-half,
+.white-bg .heading-first-half,
+.contact-form-card .heading-first-half {
+  color: #064734 !important;
+  -webkit-text-fill-color: #064734 !important;
+}
+
+.spices-card-section .heading-second-half,
+.bg-white .heading-second-half,
+.bg-light .heading-second-half,
+.light-section .heading-second-half,
+.white-bg .heading-second-half,
+.contact-form-card .heading-second-half {
+  color: #1a1a1a !important;
+  -webkit-text-fill-color: #1a1a1a !important;
+}
+
+/* 5. Hero & Section Specific Eyebrows */
+.hero-content .eyebrow {
+  color: var(--accent-turmeric) !important;
+}
+
+.bento-hero-details .eyebrow,
+.story-hero .eyebrow,
+.contact-hero .eyebrow,
+.story-block .eyebrow {
+  color: var(--accent-cardamom) !important;
+}
+
+/* 6. Bento Component Visibility */
+.bento-hero-title {
+  color: #ffffff !important;
+}
+
+.bento-switcher-title {
+  color: #ffffff !important;
+}
+
+.bento-switcher-subtitle {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.bento-title {
+  color: #ffffff;
+}
+
+.bento-dark .bento-title,
+.bento-red .bento-title {
+  color: #ffffff !important;
+}
+
+.bento-yellow .bento-title {
+  color: #1a1a1a !important;
+}
+
+.bento-yellow .bento-text {
+  color: #222222 !important;
+}
+
+.bento-white .bento-title,
+.bg-white .bento-title {
+  color: #064734 !important;
+}
+
+/* 7. Contact Info Items */
+.contact-info-item h4 {
+  color: var(--accent-cardamom) !important;
+}
+
+.contact-info-item p,
+.contact-info-item a {
+  color: #ffffff !important;
+}
+
+/* 8. Carousel & Card Headers */
+.stack-carousel__content h3 {
+  color: #ffffff !important;
+}
+
+.spice-card-text h3 {
+  color: #ffffff !important;
+}
+
+/* 9. Strict Transparent Background Reset for Split Spans */
+.heading-first-half,
+.heading-second-half,
+h1 .heading-second-half,
+h2 .heading-second-half,
+h3 .heading-second-half,
+h4 .heading-second-half,
+h5 .heading-second-half,
+h6 .heading-second-half,
+.eyebrow .heading-second-half {
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  display: inline !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STRICT NO-BACKGROUND / NO-RECTANGLE RESET FOR ALL HEADING SPANS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.heading-first-half,
+.heading-second-half,
+h1 .heading-second-half,
+h2 .heading-second-half,
+h3 .heading-second-half,
+h4 .heading-second-half,
+h5 .heading-second-half,
+h6 .heading-second-half,
+.eyebrow .heading-second-half {
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  display: inline !important;
 }

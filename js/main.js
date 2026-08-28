@@ -108,21 +108,21 @@ function initStackCarousel() {
 }
 
 
-/* --- Heading Split Colors --- */
+/* --- Heading Split Colors (Section Headings Only) --- */
 function initHeadingSplitColors() {
-  const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .eyebrow, .hero-subtitle, .bento-switcher-subtitle');
+  const headings = document.querySelectorAll('h1, h2, h3');
   headings.forEach(heading => {
-    // Skip if heading is inside a card (be specific to avoid blocking entire sections)
-    if (heading.closest('.why-card, .spice-card, .bento-card, .process-card, .product-card')) return;
+    // Skip headings inside card containers
+    if (heading.closest('.spice-card, .why-card, .bento-card, .bento-item, .process-card, .product-card, .stack-carousel, .radial-card')) return;
     
-    // Skip if heading has child elements (to avoid breaking spans, icons, etc)
-    if (heading.children.length > 0) return;
+    // Skip if contains interactive or complex children
+    if (heading.querySelector('svg, img, input, button, canvas, .stat-counter')) return;
     
     const text = heading.textContent.trim();
     if (!text) return;
     
     const words = text.split(/\s+/);
-    if (words.length <= 1) return; // Need at least 2 words to split
+    if (words.length <= 1) return;
     
     const midPoint = Math.ceil(words.length / 2);
     const firstHalf = words.slice(0, midPoint).join(' ');
@@ -284,8 +284,9 @@ function initGSAPAnimations() {
 
     const cardHeight = isMobile ? 380 : 480;
     const visibleAreaHeight = (circleDiameter * visibleDecimal) + (cardHeight / 2) + 150;
-    document.getElementById('radial-mask').style.height = visibleAreaHeight + 'px';
-    radialPin.style.minHeight = (visibleAreaHeight + 50) + 'px';
+    const radialMask = document.getElementById('radial-mask');
+    if (radialMask) radialMask.style.height = visibleAreaHeight + 'px';
+    if (radialPin) radialPin.style.minHeight = (visibleAreaHeight + 50) + 'px';
 
     // Set GSAP internal transforms so it doesn't wipe out CSS translations during rotation
     gsap.set(radialWheel, { xPercent: -50 });
@@ -413,6 +414,7 @@ class DepthCarousel {
   constructor(element, options = {}) {
     this.root = element;
     this.stage = this.root.querySelector('.depth-carousel__stage');
+    if (!this.stage) return;
     this.cards = Array.from(this.stage.querySelectorAll('.depth-carousel__card'));
     this.overlays = Array.from(this.stage.querySelectorAll('.depth-carousel__tint'));
     this.dots = Array.from(this.root.querySelectorAll('.depth-carousel__dot'));
@@ -654,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carousel = new DepthCarousel(el);
     
     // Smooth GSAP ScrollTrigger integration
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    if (carousel && carousel.cfg && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       const section = document.getElementById('process-section');
       if (section) {
         gsap.to(carousel, {
